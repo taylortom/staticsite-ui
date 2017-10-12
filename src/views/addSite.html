@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add site</title>
+  <link rel="stylesheet" href="./css/addSite.css">
+</head>
+<body>
+  <div class="inner">
+    <input id="name" type="text" name="name" value="" placeholder="name">
+    <input id="url" type="text" name="url" value="" placeholder="url">
+    <input id="username" type="text" name="username" value="" placeholder="username">
+    <input id="password" type="password" name="password" value="" placeholder="password">
+    <a href="#" id="save-site">Add</a>
+  </div>
+  <script type="text/javascript">
+    var electron = require('electron');
+    var ipc = electron.ipcRenderer;
+
+    var savebtn = getEl('save-site');
+    console.log(savebtn);
+    savebtn.addEventListener('click', function() {
+      var name = getVal('name');
+      var url = getVal('url');
+      var username = getVal('username');
+      var password = getVal('password');
+      if(!name || !url || !username || !password) {
+        return window.alert('ERROR');
+      }
+      ipc.send('site.save', {
+        name: name,
+        url: url,
+        username: username,
+        password: password
+      });
+    });
+
+    function getVal(id) {
+      return getEl(id).value;
+    }
+
+    function getEl(id) {
+      return document.getElementById(id);
+    }
+  </script>
+</body>
+</html>
