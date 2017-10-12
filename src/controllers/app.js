@@ -1,10 +1,10 @@
 var ipc = require("electron").ipcMain;
 var app = require("../main");
 
-ipc.on("site.add", addSite);
-ipc.on("site.save", saveSite);
-
 var WIN_ID = "addSite";
+
+ipc.on("app.addSite", addSite);
+ipc.on("app.saveSite", saveSite);
 
 function addSite() {
   app.addChildWindow({
