@@ -1,7 +1,8 @@
 var electron = require("electron");
 var fs = require("fs-extra");
 var git = require("nodegit");
-var path = require("path");
+
+var Constants = require("./constants");
 
 var BrowserWindow = require("electron").BrowserWindow;
 var ipc = require("electron").ipcMain;
@@ -27,8 +28,8 @@ electron.app.on("ready", function onElectronReady() {
 });
 
 function Main() {
-  this.root = path.resolve(__dirname, "..");
   this.windows = {};
+  this.Constants = Constants;
 
   this.addChildWindow = function(opts) {
     opts.parent = instance.windows.app;

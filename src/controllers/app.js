@@ -20,7 +20,7 @@ function addSite() {
 function saveSite(event, data) {
   var dirname = slugify(data.name);
   console.log(data, dirname);
-  git.Clone(data.url, path.join(instance.root, "sites", dirname))
+  git.Clone(data.url, path.join(instance.Constants.root, "sites", dirname))
     .then(function(repo) {
       console.log(repo);
       app.windows.main.webContents.send("app.siteAdded", {
