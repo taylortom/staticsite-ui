@@ -28,7 +28,7 @@
       if(!name || !url || !username || !password) {
         return window.alert('ERROR');
       }
-      ipc.send('site.save', {
+      ipc.send('app.saveSite', {
         name: name,
         url: url,
         username: username,

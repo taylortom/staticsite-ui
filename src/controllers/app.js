@@ -23,7 +23,7 @@ function saveSite(event, data) {
   git.Clone(data.url, path.join(instance.root, "sites", dirname))
     .then(function(repo) {
       console.log(repo);
-      app.windows.main.webContents.send("site.added", {
+      app.windows.main.webContents.send("app.siteAdded", {
         name: data.name,
         dirname: dirname
       });
