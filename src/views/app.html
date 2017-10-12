@@ -10,34 +10,84 @@
   <div id="app">
     <div class="inner">
       <div id="header">
-        <div class="inner">header</div>
+        <div class="inner">
+        </div>
       </div>
       <div id="sidebar">
         <div class="inner">
-          sidebar
-          <div class="sites">
+          <div class="sites block">
             <div class="header">Sites</div>
+            <div class="inner"></div>
             <a href="#" class="add-site" onclick="ipc.sendSync('app.addSite')">Add new site</a>
           </div>
-          <div class="files">
+          <div class="files block">
             <div class="header">Files</div>
+            <div class="inner"></div>
           </div>
         </div>
       </div>
       <div id="content">
-        <div class="inner">content</div>
+        <div class="inner"></div>
       </div>
     </div>
   </div>
-  <!-->In Electron, this is the correct way to include jQuery<-->
   <script>window.$ = window.jQuery = require('../libraries/jquery-3.2.1.min.js');</script>
   <script type="text/javascript">
     var electron = require('electron');
+    var fs = require('fs');
     var ipc = electron.ipcRenderer;
+    var path = require('path');
+
+    var Constants = require('../constants');
+
+    var SITES_DIR = path.join(Constants.Root, Constants.Folders.Sites);
 
     $(function() {
-      console.log('ready');
+      renderSites();
     });
+
+    function renderSites() {
+      fs.readdir(SITES_DIR, function(error, contents) {
+        var $container = $('.sites .inner');
+        $container.empty();
+
+        contents.forEach(function(item) {
+          if(item[0] === ".") return;
+          $container.append(`<a href="#" class="site menuItem" data-site="${item}">${item}`);
+        });
+        $('a.site').click(renderFiles);
+      });
+    }
+
+    function renderFiles(e) {
+      var siteDir = path.join(SITES_DIR, $(e.currentTarget).attr('data-site'));
+      fs.readdir(siteDir, function(error, contents) {
+        var $container = $('.files .inner');
+        $container.empty();
+        // TODO needs to be recursive
+        contents.forEach(function(item) {
+          if(item[0] === ".") return;
+          var itemDir = path.join(siteDir, item);
+          $container.append(`<a href="#" class="file menuItem" data-file="${itemDir}">${item}`);
+        });
+        $('a.file').click(openFile);
+      });
+    }
+
+    function openFile(e) {
+      var filepath = $(e.currentTarget).attr('data-file');
+      var fileContents = fs.readFileSync(filepath);
+
+      switch(path.extname($(e.currentTarget).attr('data-file'))) {
+        case '.md':
+          renderMarkdown(filepath, fileContents);
+          break;
+      }
+    }
+
+    function renderMarkdown(filepath, fileContents) {
+      $('#content > .inner').text(fileContents);
+    }
 
     ipc.on('app.siteAdded', function(event, data) {
       alert(JSON.stringify(data));
