@@ -19,12 +19,6 @@ electron.app.on("ready", function onElectronReady() {
     width: 850,
     height: 2000
   });
-
-  // load sites
-  // fs.readdir(path.join(this.root, 'sites'), function(error, dirs) {
-  //   if(error) return;
-  //   _.each(dirs, console.log);
-  // });
 });
 
 function Main() {
