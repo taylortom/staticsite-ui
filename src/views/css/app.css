@@ -27,3 +27,7 @@ body {
   top: 50px;
   left: 250px;
 }
+
+.sites .site {
+  display: block;
+}
