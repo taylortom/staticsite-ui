@@ -7,41 +7,60 @@
   <link rel="stylesheet" href="./css/addSite.css">
 </head>
 <body>
+  <div class="errorMessage"></div>
   <div class="inner">
-    <input id="name" type="text" name="name" value="" placeholder="name">
-    <input id="url" type="text" name="url" value="" placeholder="url">
-    <input id="username" type="text" name="username" value="" placeholder="username">
-    <input id="password" type="password" name="password" value="" placeholder="password">
-    <a href="#" id="save-site">Add</a>
+    <div class="block">
+      <h1>Add new site source</h1>
+    </div>
+    <div class="block">
+      <h3>Repository details</h3>
+      <input id="name" type="text" name="name" value="" placeholder="repository name">
+      <input id="url" type="text" name="url" value="" placeholder="repository url">
+    </div>
+    <div class="block">
+      <h3>GitHub details</h3>
+      <input id="username" type="text" name="username" value="" placeholder="GitHub username">
+      <input id="password" type="password" name="password" value="" placeholder="GitHub password">
+    </div>
+    <a href="#" id="save">Add</a>
   </div>
+  <script>window.$ = window.jQuery = require('../libraries/jquery-3.2.1.min.js');</script>
   <script type="text/javascript">
     var electron = require('electron');
     var ipc = electron.ipcRenderer;
 
-    var savebtn = getEl('save-site');
-    console.log(savebtn);
-    savebtn.addEventListener('click', function() {
-      var name = getVal('name');
-      var url = getVal('url');
-      var username = getVal('username');
-      var password = getVal('password');
-      if(!name || !url || !username || !password) {
-        return window.alert('ERROR');
-      }
-      ipc.send('app.saveSite', {
-        name: name,
-        url: url,
-        username: username,
-        password: password
-      });
-    });
+    $('#save').click(saveSite);
 
-    function getVal(id) {
-      return getEl(id).value;
+    function saveSite() {
+      try {
+        var vals = evaluateValues(['name', 'url', 'username', 'password']);
+        ipc.send('app.saveSite', vals);
+      } catch(e) {
+        $('.errorMessage').text(e).slideDown();
+      }
     }
 
-    function getEl(id) {
-      return document.getElementById(id);
+    function evaluateValues(ids) {
+      var results = {};
+      var fails = [];
+      ids.forEach(function(id) {
+        var $input = $(`#${id}`);
+        var val = $input.val();
+        if(!val) {
+          $input.addClass('error');
+          fails.push(id);
+          return;
+        }
+        results[id] = val;
+      });
+      if(fails.length > 0) {
+        throw Error(`Missing values for ${fails.join(', ')}`);
+      }
+      return results;
+    }
+
+    function displayInputError(inputId) {
+      $(`#${inputId}`).addClass('error');
     }
   </script>
 </body>
