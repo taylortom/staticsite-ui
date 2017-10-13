@@ -38,6 +38,7 @@
     var ipc = electron.ipcRenderer;
     var path = require('path');
 
+    var atomisr = require('../atomisr');
     var Constants = require('../constants');
 
     var SITES_DIR = path.join(Constants.Root, Constants.Folders.Sites);
@@ -53,22 +54,29 @@
 
         contents.forEach(function(item) {
           if(item[0] === ".") return;
-          $container.append(`<a href="#" class="site menuItem" data-site="${item}">${item}`);
+          $container.append(atomisr('menuItem.html', {
+            class: 'site',
+            item: item,
+            itemDir: path.join(SITES_DIR, item)
+          }));
         });
         $('a.site').click(renderFiles);
       });
     }
 
     function renderFiles(e) {
-      var siteDir = path.join(SITES_DIR, $(e.currentTarget).attr('data-site'));
+      var siteDir = $(e.currentTarget).attr('data-itemDir');
       fs.readdir(siteDir, function(error, contents) {
         var $container = $('.files .inner');
         $container.empty();
         // TODO needs to be recursive
         contents.forEach(function(item) {
           if(item[0] === ".") return;
-          var itemDir = path.join(siteDir, item);
-          $container.append(`<a href="#" class="file menuItem" data-file="${itemDir}">${item}`);
+          $container.append(atomisr('menuItem.html', {
+            class: 'file',
+            item: item,
+            itemDir: path.join(siteDir, item)
+          }));
         });
         $('a.file').click(openFile);
       });
