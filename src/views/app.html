@@ -10,20 +10,21 @@
 </head>
 <body>
   <div id="app">
-    <div class="inner">
-      <div id="header">
-        <div class="inner">
-        </div>
+    <div id="header">
+      <div class="inner">
+        <div class="title">staticsite-ui</div>
       </div>
+    </div>
+    <div class="inner">
       <div id="sidebar">
         <div class="inner">
           <div class="sites block">
             <div class="header">Sites</div>
             <div class="inner"></div>
-            <a href="#" class="add-site" onclick="ipc.sendSync('app.addSite')">Add new site</a>
+            <a href="#" class="menuItem addSite"><span class="fa fa-plus"></span>Add new site</a>
           </div>
           <div class="files block">
-            <div class="header">Files</div>
+            <div class="header">Site files</div>
             <div class="inner"></div>
           </div>
         </div>
@@ -46,8 +47,16 @@
     var SITES_DIR = path.join(Constants.Root, Constants.Folders.Sites);
 
     $(function() {
+      resizeContentPane();
+      $(document).on('resize', resizeContentPane);
+
       renderSites();
+      $('.menuItem.addSite').click(addSite);
     });
+
+    function resizeContentPane(e) {
+      $('#content').height($(window).height()-$('#header').outerHeight());
+    }
 
     function renderSites() {
       fs.readdir(SITES_DIR, function(error, contents) {
@@ -85,10 +94,10 @@
     }
 
     function openFile(e) {
-      var filepath = $(e.currentTarget).attr('data-file');
+      var filepath = $(e.currentTarget).attr('data-itemDir');
       var fileContents = fs.readFileSync(filepath);
 
-      switch(path.extname($(e.currentTarget).attr('data-file'))) {
+      switch(path.extname(filepath)) {
         case '.md':
           renderMarkdown(filepath, fileContents);
           break;
@@ -99,8 +108,13 @@
       $('#content > .inner').text(fileContents);
     }
 
+    function addSite(e) {
+      ipc.sendSync('app.addSite');
+    }
+
     ipc.on('app.siteAdded', function(event, data) {
-      alert(JSON.stringify(data));
+      alert('app.siteAdded');
+      // alert(JSON.stringify(data));
     });
   </script>
 </body>
