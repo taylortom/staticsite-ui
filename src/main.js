@@ -53,10 +53,6 @@ function removeWindow(id) {
   }
 }
 
-function slugify(str) {
-  return str.replace(/\s|\//g, "-");
-}
-
 function getInstance() {
   if(!instance) instance = new Main()
   return instance;

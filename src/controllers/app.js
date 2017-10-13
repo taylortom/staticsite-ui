@@ -1,5 +1,6 @@
 var ipc = require("electron").ipcMain;
 var app = require("../main");
+var helpers = require("../helpers");
 
 var WIN_ID = "addSite";
 
@@ -18,8 +19,8 @@ function addSite() {
 }
 
 function saveSite(event, data) {
-  var dirname = slugify(data.name);
   console.log(data, dirname);
+  var dirname = helpers.slugify(data.name);
   git.Clone(data.url, path.join(instance.Constants.root, "sites", dirname))
     .then(function(repo) {
       console.log(repo);
