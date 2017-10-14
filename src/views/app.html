@@ -21,11 +21,9 @@
           <div class="sites block">
             <div class="header">Sites</div>
             <div class="inner"></div>
-            <a href="#" class="menuItem addSite"><span class="fa fa-plus"></span>Add new site</a>
-          </div>
-          <div class="files block">
-            <div class="header">Site files</div>
-            <div class="inner"></div>
+            <div class="menuItem addSite">
+              <span class="fa fa-plus"></span>Add new site
+            </div>
           </div>
         </div>
       </div>
@@ -39,10 +37,14 @@
     var electron = require('electron');
     var fs = require('fs');
     var ipc = electron.ipcRenderer;
+    var klaw = require('klaw-sync');
     var path = require('path');
 
     var atomisr = require('../atomisr');
     var Constants = require('../constants');
+    var helpers = require('../helpers');
+
+    // TODO add a watch and rerender
 
     var SITES_DIR = path.join(Constants.Root, Constants.Folders.Sites);
 
@@ -65,35 +67,56 @@
 
         contents.forEach(function(item) {
           if(item[0] === ".") return;
-          $container.append(atomisr('menuItem.html', {
+          var itemDir = path.join(SITES_DIR, item);
+          var $el = $(atomisr('menuItemSite.html', {
             class: 'site',
             item: item,
-            itemDir: path.join(SITES_DIR, item)
+            itemDir: itemDir
           }));
+          console.log($('.files', $el));
+          $('.files', $el).slideUp(0);
+          $container.append($el);
+          renderFiles(itemDir);
         });
-        $('a.site').click(renderFiles);
+        $('.site').click(toggleFiles);
       });
     }
 
-    function renderFiles(e) {
-      var siteDir = $(e.currentTarget).attr('data-itemDir');
-      fs.readdir(siteDir, function(error, contents) {
-        var $container = $('.files .inner');
-        $container.empty();
-        // TODO needs to be recursive
-        contents.forEach(function(item) {
-          if(item[0] === ".") return;
-          $container.append(atomisr('menuItem.html', {
-            class: 'file',
-            item: item,
-            itemDir: path.join(siteDir, item)
-          }));
-        });
-        $('a.file').click(openFile);
+    function renderFiles(siteDir) {
+      var items = klaw(siteDir, {
+        noRecurseOnFailedFilter: true,
+        filter: function(item) {
+          var basename = path.basename(item.path);
+          return basename === '.' || basename[0] !== '.';
+        }
       });
+      var $container = $(`.menuItem[data-itemDir="${siteDir}"] .files .inner`);
+      $container.empty();
+      items.forEach(function(item) {
+        var itemPath = item.path;
+        var filename = path.basename(itemPath);
+        $container.append(atomisr('menuItemFile.html', {
+          class: 'file',
+          item: filename,
+          itemDir: itemPath,
+          icon: helpers.getIconForFiletype(path.extname(filename))
+        }));
+      });
+      $('.file').click(openFile);
+    }
+
+    function toggleFiles(e) {
+      var $menuItem = $(e.currentTarget);
+      var $files = $('.files', $menuItem);
+      var showFiles = !$('span.fa-plus', $menuItem).hasClass('display-none');
+
+      (showFiles) ? $files.slideDown() : $files.slideUp();
+      $('span', $menuItem.children('.title')).toggleClass('display-none');
     }
 
     function openFile(e) {
+      e.stopPropagation();
+
       var filepath = $(e.currentTarget).attr('data-itemDir');
       var fileContents = fs.readFileSync(filepath);
 
@@ -114,7 +137,6 @@
 
     ipc.on('app.siteAdded', function(event, data) {
       alert('app.siteAdded');
-      // alert(JSON.stringify(data));
     });
   </script>
 </body>
