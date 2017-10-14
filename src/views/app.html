@@ -108,7 +108,7 @@
     function toggleFiles(e) {
       var $menuItem = $(e.currentTarget);
       var $files = $('.files', $menuItem);
-      var showFiles = !$('span.fa-plus', $menuItem).hasClass('display-none');
+      var showFiles = !$('span.fa-chevron-right', $menuItem).hasClass('display-none');
 
       (showFiles) ? $files.slideDown() : $files.slideUp();
       $('span', $menuItem.children('.title')).toggleClass('display-none');
