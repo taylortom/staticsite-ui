@@ -16,48 +16,81 @@
 }
 
 #app > .inner {
-  padding: 5%;
+  padding: 20px;
+  padding-top: 40px;
 }
 
 #sidebar {
   position: static;
   width: 30%;
-  background-color: #21252b;
-  border-right: 1px solid black;
   float: left;
 }
-.block {
-}
-#sidebar .block .header {
+#sidebar .header {
   font-size: 20px;
   font-weight: bold;
   padding: 15px;
-  background-color: rgba(0,0,0,0.2);
-  border-bottom: 1px solid #313131;
 }
 #sidebar .block .inner {
 }
 #sidebar .inner .menuItem .title {
-  padding: 15px;
+  padding: 7px;
   color: inherit;
   cursor: pointer;
+}
+#sidebar .inner .menuItem.site > .title {
+  padding: 15px;
+  background-color: #21252b;
   border-bottom: 1px solid #313131;
 }
-#sidebar .inner .menuItem .title:hover {
-  background-color: rgba(255,255,255,0.1);
+#sidebar .inner .menuItem.site > .title:hover {
+  color: #e0e0e0;
 }
-#sidebar .inner .menuItem .file {
-  font-size: 80%;
+#sidebar .inner .menuItem.site > .title > .toggle {
+  width: 10px;
+  font-size: 10px;
 }
-#sidebar .inner .menuItem .file .title {
-  padding-left: 30px;
+#sidebar .inner .menuItem.site .files {
+  margin: 7px 20px 15px 20px;
+}
+
+#sidebar .inner .menuItem.file {
+  font-size: 75%;
+}
+#sidebar .inner .menuItem.file .title {
   color: #777d85;
 }
+#sidebar .inner .menuItem.file .fa {
+  margin-right: 10px;
+}
+#sidebar .inner .menuItem.file.selected .title {
+  color: #40a1ca;
+}
+#sidebar .inner .menuItem.file .title:hover {
+  text-decoration: underline;
+}
+
+.addSite {
+  float: right;
+  font-size: 14px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+.addSite:hover {
+  text-decoration: underline;
+}
+
+
 
 #content {
   height: 836px;
   width: 69%;
   box-sizing: border-box;
   float: left;
-  border: 1px solid white;
+  background-color: #21252b;
+  border-right: 1px solid #1a1e22;
+  border-radius: 3px;
+}
+
+#content .header {
+  padding: 10px;
 }

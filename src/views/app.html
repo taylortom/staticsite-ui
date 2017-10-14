@@ -17,19 +17,20 @@
     </div>
     <div class="inner">
       <div id="sidebar">
+        <div class="header">
+          Sites
+          <div class="addSite">
+            <span class="fa fa-plus"></span>Add
+          </div>
+        </div>
         <div class="inner">
           <div class="sites block">
-            <div class="header">Sites</div>
             <div class="inner"></div>
-            <div class="menuItem addSite">
-              <div class="title">
-                <span class="fa fa-plus"></span>Add new site
-              </div>
-            </div>
           </div>
         </div>
       </div>
       <div id="content">
+        <div class="header"></div>
         <div class="inner"></div>
       </div>
     </div>
@@ -55,7 +56,8 @@
       $(document).on('resize', resizeContentPane);
 
       renderSites();
-      $('.menuItem.addSite').click(addSite);
+
+      $('.addSite').click(addSite);
     });
 
     function resizeContentPane(e) {
@@ -75,7 +77,6 @@
             item: item,
             itemDir: itemDir
           }));
-          console.log($('.files', $el));
           $('.files', $el).slideUp(0);
           $container.append($el);
           renderFiles(itemDir);
@@ -95,6 +96,9 @@
       var $container = $(`.menuItem[data-itemDir="${siteDir}"] .files .inner`);
       $container.empty();
       items.forEach(function(item) {
+        if(fs.statSync(item.path).isDirectory()) {
+          return;
+        }
         var itemPath = item.path;
         var filename = path.basename(itemPath);
         $container.append(atomisr('menuItemFile.html', {
@@ -110,10 +114,10 @@
     function toggleFiles(e) {
       var $menuItem = $(e.currentTarget);
       var $files = $('.files', $menuItem);
-      var showFiles = !$('span.fa-chevron-right', $menuItem).hasClass('display-none');
+      var showFiles = !$('.files', $menuItem).is(':visible');
 
       (showFiles) ? $files.slideDown() : $files.slideUp();
-      $('span', $menuItem.children('.title')).toggleClass('display-none');
+      $('.toggle', $menuItem.children('.title')).toggleClass('display-none');
     }
 
     function openFile(e) {
