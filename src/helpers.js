@@ -4,12 +4,19 @@ module.exports = {
   },
 
   getIconForFiletype: function(filetype) {
-    switch(filetype) {
+    switch(filetype.toLowerCase()) {
       case 'markdown':
       case '.md':
-        return 'fa-file-o';
+      case '.txt':
+        return 'fa-file-text-o';
+      case '.css':
       case '.html':
-        return 'fa-file-code-o';
+      case '.js':
+        return 'fa-code';
+      case '.png':
+      case '.jpeg':
+      case '.jpg':
+        return 'fa-file-image-o';
       default:
         return 'fa-question';
     }
