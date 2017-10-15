@@ -18,7 +18,6 @@ electron.app.on("ready", function onElectronReady() {
     filename: "app.html",
     width: 850,
     height: 2000
-    backgroundColor: '#282c34'
   });
 });
 
@@ -42,8 +41,11 @@ function addWindow(opts) {
   delete opts.id;
   var filename = opts.filename;
   delete opts.filename;
-
-  var win = new BrowserWindow(opts);
+  // create window
+  var win = new BrowserWindow(Object.assign({
+    titleBarStyle: 'hiddenInset',
+    backgroundColor: '#282c34'
+  }, opts));
   instance.windows[id] = win;
   win.loadURL(`file://${__dirname}/views/${filename}`);
 }
