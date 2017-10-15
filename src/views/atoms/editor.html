@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="css/editor.css">
+<div class="editor">
+  <div id="ace"></div>
+</div>
+<script src="../libraries/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(function() {
+  var electron = require('electron');
+  var events = require('../events');
+  var fs = require('fs');
+  var path = require('path');
+  var editor;
+
+  (function initAce() {
+    editor = ace.edit("ace");
+    editor.setTheme("ace/theme/monokai");
+  })();
+
+  function getEditorMode(filepath) {
+    var extname = path.extname(filepath);
+    switch(extname) {
+      case '.html':
+        return 'html';
+      case '.css':
+        return 'css';
+      case '.md':
+        return 'markdown';
+      case '.js':
+        return 'javascript';
+      case '.json':
+        return 'json';
+      case '.less':
+        return 'javascript';
+    }
+    console.error(`Unsupported filetype ${extname}`);
+  }
+
+  events.on('editor.open', openFile);
+
+  function openFile(filepath) {
+    if(!filepath) {
+      return;
+    }
+    editor.getSession().setMode(`ace/mode/${getEditorMode(filepath)}`);
+    fs.readFile(filepath, function(error, contents) {
+      if(error) {
+        return console.error(error);
+      }
+      events.trigger('content.setTitle', path.basename(filepath));
+
+      editor.setValue(contents.toString());
+      editor.getSession().setUseWrapMode(true);
+      editor.gotoLine(0);
+    });
+  }
+});
+</script>
