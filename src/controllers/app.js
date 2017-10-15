@@ -1,30 +1,60 @@
+var git = require("nodegit");
 var ipc = require("electron").ipcMain;
+var path = require("path");
+
 var app = require("../main");
 var helpers = require("../helpers");
 
-var WIN_ID = "addSite";
+var WIN_NEW_SITE_ID = "addNewSite";
+var WIN_EXISTING_SITE_ID = "addExistingSite";
 
-ipc.on("app.addSite", addSite);
-ipc.on("app.saveSite", saveSite);
+ipc.on("app.addNewSite", addNewSiteWindow);
+ipc.on("app.addExistingSite", addExistingSiteWindow);
+ipc.on("app.createNewSite", createNewSite);
+ipc.on("app.cloneExistingSite", cloneExistingSite);
 
-function addSite() {
+function addNewSiteWindow() {
   app.addChildWindow({
-    id: WIN_ID,
-    filename: "addSite.html",
-    width: 300,
-    height: 200,
+    id: WIN_NEW_SITE_ID,
+    filename: "addNewSite.html",
+    width: 450,
+    height: 220,
     frame: false,
     alwaysOnTop: true
   });
 }
 
-function saveSite(event, data) {
-  console.log(data, dirname);
-  var dirname = helpers.slugify(data.name);
-  git.Clone(data.url, path.join(instance.Constants.root, "sites", dirname))
+function addExistingSiteWindow() {
+  app.addChildWindow({
+    id: WIN_EXISTING_SITE_ID,
+    filename: "addExistingSite.html",
+    width: 450,
+    height: 600,
+    frame: false,
+    alwaysOnTop: true
+  });
+}
+
+function createNewSite(event, data) {
+  app.removeChildWindow(WIN_NEW_SITE_ID);
+  console.log('createNewSite:', data);
+}
+
+function cloneExistingSite(event, url) {
+  app.removeChildWindow(WIN_EXISTING_SITE_ID);
+  if(!url) {
+    url = 'https://github.com/taylortom/staticsite-skele.git';
+  }
+  var dirname = path.basename(url).replace('.git', '');
+  console.log('cloneExistingSite:', url, dirname);
+  //
+  //
+  return;
+  //
+  //
+  git.Clone(url, path.join(app.Constants.Root, "sites", dirname))
     .then(function(repo) {
-      console.log(repo);
-      app.windows.main.webContents.send("app.siteAdded", {
+      app.windows.app.webContents.send("app.siteAdded", {
         name: data.name,
         dirname: dirname
       });
@@ -32,5 +62,4 @@ function saveSite(event, data) {
     .catch(function(err) {
       console.log(err);
     });
-  app.removeWindow(WIN_ID);
 }
