@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add new site</title>
+  <link rel="stylesheet" href="./css/theme.css">
+  <link rel="stylesheet" href="./css/addNewSite.css">
+</head>
+<body>
+  <div class="inner">
+    <div class="title">Add new site</div>
+    <div class="form">
+      <input type="text" name="name" placeholder="Enter a name for your site">
+    </div>
+    <a href="#" class="submit">Create site</a>
+  </div>
+  <script>window.$ = window.jQuery = require('../libraries/jquery-3.2.1.min.js');</script>
+  <script type="text/javascript">
+    var ipc = require('electron').ipcRenderer;
+
+    (function init() {
+      $('.submit').click(createSite);
+    })();
+
+    function createSite() {
+      var data = {};
+      $('.form input').each(function(i, input) {
+        var $input = $(input);
+        data[$input.attr('name')] = $input.val();
+      });
+      ipc.send('app.createNewSite', data);
+    }
+  </script>
+</body>
+</html>

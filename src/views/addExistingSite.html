@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add existing site</title>
+  <link rel="stylesheet" href="./css/theme.css">
+  <link rel="stylesheet" href="./css/addExistingSite.css">
+</head>
+<body>
+  <div class="grab-bar"></div>
+  <div class="inner">
+    <div class="title">Add existing site</div>
+    <div class="content"></div>
+  </div>
+  <script>window.$ = window.jQuery = require('../libraries/jquery-3.2.1.min.js');</script>
+  <script type="text/javascript">
+    var async = require('async');
+    var atomisr = require('../atomisr');
+    var github = require('../github');
+    var ipc = require('electron').ipcRenderer;
+
+    (function init() {
+      renderRepos();
+    })();
+
+    function renderRepos() {
+      $('.content').empty();
+      async.waterfall([
+        function(cb) {
+          github.authenticate(cb);
+        },
+        function(token, cb) {
+          github.getUser(cb);
+        },
+        function(user, cb) {
+          github.getRepos(cb);
+        },
+        function(repos, cb) {
+          if(!repos.length) {
+            return cb();
+          }
+          var $repos = $('<div class="repos">');
+          repos.forEach(function(repo) {
+            $repos.append(atomisr('repo.html', repo));
+          });
+          $('.content').append($repos);
+          cb();
+        }
+      ], function(error) {
+        if(error) console.error(error);
+        $('a.repo').click(selectRepo);
+      });
+    }
+
+    function getRepoName() {;
+      $('.content').html(atomisr('newRepoInput.html'));
+    }
+
+    function selectRepo(e) {
+      var repoUrl = $(e.currentTarget).attr('data-url');
+      ipc.send('app.cloneExistingSite', repoUrl);
+    }
+  </script>
+</body>
+</html>

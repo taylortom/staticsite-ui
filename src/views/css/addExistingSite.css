@@ -1,0 +1,44 @@
+body {
+  width: 100%;
+  height: 100%;
+}
+
+a {
+  color: inherit;
+  display: block;
+}
+
+.inner {
+  padding: 20px;
+  padding-top: 45px;
+}
+
+.inner > .title {
+  font-size: 19px;
+  margin-bottom: 20px;
+  margin-left: 4px;
+}
+
+.content {
+  height: 475px;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: rgba(255,255,255,0.04);
+  border: 1px solid #454950;
+  border-radius: 2px;
+}
+
+.content > a {
+  margin: 15px 5px;
+}
+
+.inner .repos .repo {
+  display: block;
+  margin-bottom: 5px;
+}
+.inner .repos .repo .login {
+  opacity: 0.5;
+}
+.inner .repos .repo:last-child {
+  margin-bottom: 0;
+}
