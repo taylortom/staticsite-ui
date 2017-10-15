@@ -2,6 +2,13 @@
   display: none !important;
 }
 
+.grab-bar {
+  position: absolute;
+  height: 40px;
+  width: 100%;
+  -webkit-app-region: drag;
+}
+
 .fa {
   margin-right: 5px;
 }
