@@ -15,135 +15,17 @@
         <div class="title">staticsite-ui</div>
       </div>
     </div>
-    <div class="inner">
-      <div id="sidebar">
-        <div class="header">
-          Sites
-          <div class="addSite">
-            <span class="fa fa-plus"></span>Add
-          </div>
-        </div>
-        <div class="inner">
-          <div class="sites block">
-            <div class="inner"></div>
-          </div>
-        </div>
-      </div>
-      <div id="content">
-        <div class="header"></div>
-        <div class="inner"></div>
-      </div>
-    </div>
+    <div class="inner"></div>
   </div>
   <script>window.$ = window.jQuery = require('../libraries/jquery-3.2.1.min.js');</script>
   <script type="text/javascript">
-    var electron = require('electron');
-    var fs = require('fs');
-    var ipc = electron.ipcRenderer;
-    var klaw = require('klaw-sync');
-    var path = require('path');
-
+  $(function() {
     var atomisr = require('../atomisr');
-    var Constants = require('../constants');
-    var helpers = require('../helpers');
-
-    // TODO add a watch and rerender
-
-    var SITES_DIR = path.join(Constants.Root, Constants.Folders.Sites);
-
-    $(function() {
-      resizeContentPane();
-      $(document).on('resize', resizeContentPane);
-
-      renderSites();
-
-      $('.addSite').click(addSite);
-    });
-
-    function resizeContentPane(e) {
-      $('#content').height($(window).height()-$('#header').outerHeight());
-    }
-
-    function renderSites() {
-      fs.readdir(SITES_DIR, function(error, contents) {
-        var $container = $('.sites .inner');
-        $container.empty();
-
-        contents.forEach(function(item) {
-          if(item[0] === ".") return;
-          var itemDir = path.join(SITES_DIR, item);
-          var $el = $(atomisr('menuItemSite.html', {
-            class: 'site',
-            item: item,
-            itemDir: itemDir
-          }));
-          $('.files', $el).slideUp(0);
-          $container.append($el);
-          renderFiles(itemDir);
-        });
-        $('.site').click(toggleFiles);
-      });
-    }
-
-    function renderFiles(siteDir) {
-      var items = klaw(siteDir, {
-        noRecurseOnFailedFilter: true,
-        filter: function(item) {
-          var basename = path.basename(item.path);
-          return basename === '.' || basename[0] !== '.';
-        }
-      });
-      var $container = $(`.menuItem[data-itemDir="${siteDir}"] .files .inner`);
-      $container.empty();
-      items.forEach(function(item) {
-        if(fs.statSync(item.path).isDirectory()) {
-          return;
-        }
-        var itemPath = item.path;
-        var filename = path.basename(itemPath);
-        $container.append(atomisr('menuItemFile.html', {
-          class: 'file',
-          item: filename,
-          itemDir: itemPath,
-          icon: helpers.getIconForFiletype(path.extname(filename))
-        }));
-      });
-      $('.file').click(openFile);
-    }
-
-    function toggleFiles(e) {
-      var $menuItem = $(e.currentTarget);
-      var $files = $('.files', $menuItem);
-      var showFiles = !$('.files', $menuItem).is(':visible');
-
-      (showFiles) ? $files.slideDown() : $files.slideUp();
-      $('.toggle', $menuItem.children('.title')).toggleClass('display-none');
-    }
-
-    function openFile(e) {
-      e.stopPropagation();
-
-      var filepath = $(e.currentTarget).attr('data-itemDir');
-      var fileContents = fs.readFileSync(filepath);
-
-      switch(path.extname(filepath)) {
-        case '.md':
-          renderMarkdown(filepath, fileContents);
-          break;
-      }
-    }
-
-    function renderMarkdown(filepath, fileContents) {
-      $('#content > .inner').text(fileContents);
-    }
-
-    function addSite(e) {
-      ipc.sendSync('app.addSite');
-    }
-
-    ipc.on('app.siteAdded', function(event, data) {
-      alert('app.siteAdded');
-    });
+    $('#app > .inner').append(
+      atomisr('sidebar.html'),
+      atomisr('content.html')
+    );
+  });
   </script>
 </body>
 </html>

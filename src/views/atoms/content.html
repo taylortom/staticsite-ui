@@ -1,0 +1,36 @@
+<div id="content">
+  <div class="header">
+    <div class="toolbar"></div>
+    <div class="text">&nbsp;</div>
+  </div>
+  <div class="inner"></div>
+</div>
+<script type="text/javascript">
+$(function() {
+  var atomisr = require('../atomisr');
+  var events = require('../events');
+
+  (function init() {
+    addListeners();
+    resize();
+    render();
+  })();
+
+  function addListeners() {
+    $(document).on('resize', resize);
+    events.on('content.setTitle', updateTitle);
+  }
+
+  function render() {
+    $('#content > .inner').append(atomisr('editor.html'));
+  }
+
+  function updateTitle(newTitle) {
+    $('.header > .text').text(newTitle);
+  }
+
+  function resize() {
+    $('#content').height($(window).height()-$('#content').offset().top);
+  }
+});
+</script>
