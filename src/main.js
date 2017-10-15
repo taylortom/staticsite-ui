@@ -1,6 +1,5 @@
 var electron = require("electron");
 var fs = require("fs-extra");
-var git = require("nodegit");
 
 var Constants = require("./constants");
 
