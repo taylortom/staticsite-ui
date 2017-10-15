@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 
 module.exports = function Atomisr(filepath, data) {
   data = data || {};
@@ -8,6 +9,10 @@ module.exports = function Atomisr(filepath, data) {
     var value = data[key];
     fileContents = fileContents.replace(RegExp(`{{${key}}}`, 'g'), value);
   }
+  // wrap everything in script tags to avoid global scope pollution
+  // fileContents = fileContents.replace(RegExp('<script type="text\/javascript">([\s\S]*?)<\/script>', 'g'), function() {
+  //   console.log('dfsfs', arguments.slice());
+  // });
   // remove anything not found in data
   return fileContents.replace(/{{.+?}}/g, '');
 }
