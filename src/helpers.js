@@ -12,6 +12,7 @@ module.exports = {
       case '.css':
       case '.html':
       case '.js':
+      case '.less':
         return 'fa-code';
       case '.png':
       case '.jpeg':
