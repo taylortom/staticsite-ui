@@ -21,30 +21,27 @@ body {
   -webkit-user-select: none;
 }
 
-::-webkit-scrollbar {
+::-webkit-scrollbar
+::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
   background: none;
+}
+::-webkit-scrollbar {
   width: 7px;
   height: 7px;
-}
-::-webkit-scrollbar-track-piece,
-::-webkit-scrollbar-track {
-  background: none;
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(255,255,255,0.1);
   border-radius: 5px;
 }
+/* TODO fix these */
 ::-webkit-scrollbar-button {
   background: red;
-}
-::-webkit-scrollbar-corner {
-  background: yellow;
 }
 ::-webkit-resizer {
   background: pink;
 }
-
-
 
 
 #header .title {
