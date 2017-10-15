@@ -13,9 +13,7 @@
 </div>
 <script type="text/javascript">
 $(function() {
-  var electron = require('electron');
   var fs = require('fs');
-  var ipc = electron.ipcRenderer;
   var klaw = require('klaw-sync');
   var path = require('path');
 
@@ -114,11 +112,12 @@ $(function() {
   }
 
   function addSite(e) {
-    ipc.send('app.addSite');
+    var $callout = $('#addSiteType');
+    if($callout.length) {
+      $callout.remove();
+    } else {
+      $('body').append(atomisr('addSiteCallout.html'));
+    }
   }
-
-  ipc.on('app.siteAdded', function(event, data) {
-    alert('app.siteAdded');
-  });
 });
 </script>

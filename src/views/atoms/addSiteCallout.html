@@ -1,0 +1,23 @@
+<div id="addSiteType">
+  <link rel="stylesheet" href="css/addSiteCallout.css">
+  <span class="fa fa-caret-up"></span>
+  <div class="inner">
+    <a href="#" class="new">Start from scratch</a>
+    <a href="#" class="existing">Use existing repository</a>
+  </div>
+</div>
+<script type="text/javascript">
+$(function() {
+  var ipc = require('electron').ipcRenderer;
+
+  $('#addSiteType a.new').click(function() {
+    ipc.send('app.addNewSite');
+  });
+  $('#addSiteType a.existing').click(function() {
+    ipc.send('app.addExistingSite');
+  });
+  $('#addSiteType a').click(function() {
+    $('#addSiteType').remove();
+  });
+});
+</script>
