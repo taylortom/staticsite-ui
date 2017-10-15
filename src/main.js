@@ -50,6 +50,7 @@ function addWindow(opts) {
 
 function removeWindow(id) {
   if(instance.windows[id]) {
+    instance.windows[id].close();
     instance.windows[id] = null;
   }
 }
