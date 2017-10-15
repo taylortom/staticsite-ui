@@ -18,6 +18,7 @@ electron.app.on("ready", function onElectronReady() {
     filename: "app.html",
     width: 850,
     height: 2000
+    backgroundColor: '#282c34'
   });
 });
 

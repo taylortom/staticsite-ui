@@ -10,13 +10,11 @@
   -webkit-app-region: drag;
 }
 #header .title {
-  font-size: 18px;
   text-align: center;
   margin: 8px 0;
 }
 
 #app > .inner {
-  padding: 20px;
   padding-top: 40px;
 }
 
@@ -26,12 +24,12 @@
   float: left;
 }
 #sidebar .header {
-  font-size: 20px;
-  font-weight: bold;
   padding: 15px;
 }
-#sidebar .block .inner {
+#sidebar > .inner {
+  overflow: auto;
 }
+
 #sidebar .inner .menuItem .title {
   padding: 7px;
   color: inherit;
@@ -39,58 +37,29 @@
 }
 #sidebar .inner .menuItem.site > .title {
   padding: 15px;
-  background-color: #21252b;
-  border-bottom: 1px solid #313131;
-}
-#sidebar .inner .menuItem.site > .title:hover {
-  color: #e0e0e0;
 }
 #sidebar .inner .menuItem.site > .title > .toggle {
   width: 10px;
-  font-size: 10px;
 }
 #sidebar .inner .menuItem.site .files {
   margin: 7px 20px 15px 20px;
 }
-
-#sidebar .inner .menuItem.file {
-  font-size: 75%;
-}
-#sidebar .inner .menuItem.file .title {
-  color: #777d85;
-}
 #sidebar .inner .menuItem.file .fa {
   margin-right: 10px;
-}
-#sidebar .inner .menuItem.file.selected .title {
-  color: #40a1ca;
-}
-#sidebar .inner .menuItem.file .title:hover {
-  text-decoration: underline;
 }
 
 .addSite {
   float: right;
-  font-size: 14px;
   margin-top: 5px;
   cursor: pointer;
 }
-.addSite:hover {
-  text-decoration: underline;
-}
-
-
 
 #content {
-  height: 836px;
-  width: 69%;
+  width: 70%;
   box-sizing: border-box;
   float: left;
-  background-color: #21252b;
-  border-right: 1px solid #1a1e22;
-  border-radius: 3px;
 }
 
 #content .header {
-  padding: 10px;
+  padding: 3px;
 }

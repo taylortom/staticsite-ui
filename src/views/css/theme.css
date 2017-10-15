@@ -11,11 +11,13 @@ body {
   font-family: serif;
   color: #abb2bb;
   overflow-y: hidden;
+  -webkit-user-select: none;
 }
 
 ::-webkit-scrollbar {
   background: none;
-  width: 10px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track-piece,
 ::-webkit-scrollbar-track {
@@ -33,4 +35,55 @@ body {
 }
 ::-webkit-resizer {
   background: pink;
+}
+
+
+
+
+#header .title {
+  font-size: 18px;
+  text-align: center;
+}
+#sidebar .header {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 15px;
+}
+#sidebar .inner .menuItem.site > .title {
+  background-color: #21252b;
+  border-bottom: 1px solid #313131;
+}
+#sidebar .inner .menuItem.site > .title:hover {
+  color: #e0e0e0;
+}
+#sidebar .inner .menuItem.site > .title > .toggle {
+  font-size: 10px;
+}
+#sidebar .inner .menuItem.file {
+  font-size: 75%;
+}
+#sidebar .inner .menuItem.file .title {
+  color: #777d85;
+}
+#sidebar .inner .menuItem.file.selected .title {
+  color: #40a1ca;
+}
+#sidebar .inner .menuItem.file .title:hover {
+  text-decoration: underline;
+}
+.addSite {
+  font-size: 14px;
+}
+.addSite:hover {
+  text-decoration: underline;
+}
+#content {
+  background-color: #21252b;
+  border-right: 1px solid #1a1e22;
+  border-radius: 3px;
+}
+#content .header {
+  border-bottom: 1px solid rgb(56, 56, 56);
+  background: rgba(33, 37, 43, 0.92);
+  text-align: center;
 }
