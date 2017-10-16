@@ -16,39 +16,3 @@
 #app > .inner {
   padding-top: 40px;
 }
-
-#sidebar {
-  position: static;
-  width: 30%;
-  float: left;
-}
-#sidebar .header {
-  padding: 15px;
-}
-#sidebar > .inner {
-  overflow: auto;
-}
-
-#sidebar .inner .menuItem .title {
-  padding: 7px;
-  color: inherit;
-  cursor: pointer;
-}
-#sidebar .inner .menuItem.site > .title {
-  padding: 15px;
-}
-#sidebar .inner .menuItem.site > .title > .toggle {
-  width: 10px;
-}
-#sidebar .inner .menuItem.site .files {
-  margin: 7px 20px 15px 20px;
-}
-#sidebar .inner .menuItem.file .fa {
-  margin-right: 10px;
-}
-
-.addSite {
-  float: right;
-  margin-top: 5px;
-  cursor: pointer;
-}
