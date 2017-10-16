@@ -66,13 +66,18 @@ $(function() {
   }
 
   function renderFiles(siteDir) {
-    var items = klaw(siteDir, {
-      noRecurseOnFailedFilter: true,
-      filter: function(item) {
-        var basename = path.basename(item.path);
-        return basename === '.' || basename[0] !== '.';
-      }
-    });
+    try {
+      var items = klaw(path.join(siteDir, '_pages'), {
+        noRecurseOnFailedFilter: true,
+        filter: function(item) {
+          var basename = path.basename(item.path);
+          return basename === '.' || basename[0] !== '.';
+        }
+      });
+    } catch(e) {
+      $(`.menuItem.site[data-itemDir='${siteDir}']`).remove();
+      return console.error(`Invalid site source at ${siteDir}`);
+    }
     var $container = $(`.menuItem[data-itemDir="${siteDir}"] .files .inner`);
     $container.empty();
     items.forEach(function(item) {
