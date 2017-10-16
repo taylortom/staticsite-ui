@@ -58,7 +58,7 @@ $(function() {
           item: item,
           itemDir: itemDir
         }));
-        $('.files', $el).slideUp(0);
+        $('.drawer', $el).slideUp(0);
         $container.append($el);
         renderFiles(itemDir);
       });
@@ -98,10 +98,10 @@ $(function() {
 
   function toggleFiles(e) {
     var $menuItem = $(e.currentTarget);
-    var $files = $('.files', $menuItem);
-    var showFiles = !$('.files', $menuItem).is(':visible');
+    var $drawer = $('.drawer', $menuItem);
+    var show = !$('.drawer', $menuItem).is(':visible');
 
-    (showFiles) ? $files.slideDown() : $files.slideUp();
+    (show) ? $drawer.slideDown() : $drawer.slideUp();
     $('.toggle', $menuItem.children('.title')).toggleClass('display-none');
   }
 
