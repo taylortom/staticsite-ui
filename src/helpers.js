@@ -14,6 +14,8 @@ module.exports = {
       case '.js':
       case '.less':
         return 'fa-code';
+      case '.json':
+        return 'fa-cog';
       case '.png':
       case '.jpeg':
       case '.jpg':
