@@ -30,6 +30,11 @@
 }
 #sidebar .inner .menuItem.site .actions .button {
   display: inline-block;
+  color: inherit;
+  margin-right: 5px;
+}
+#sidebar .inner .menuItem.site .actions .button:last-child {
+  margin-right: 0;
 }
 
 #sidebar .inner .menuItem.site .files {

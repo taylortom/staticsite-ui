@@ -1,6 +1,7 @@
 var git = require("nodegit");
 var ipc = require("electron").ipcMain;
 var path = require("path");
+var cli = require("staticsite-cli");
 
 var app = require("../main");
 var helpers = require("../helpers");
@@ -10,8 +11,12 @@ var WIN_EXISTING_SITE_ID = "addExistingSite";
 
 ipc.on("app.addNewSite", addNewSiteWindow);
 ipc.on("app.addExistingSite", addExistingSiteWindow);
+
 ipc.on("app.createNewSite", createNewSite);
 ipc.on("app.cloneExistingSite", cloneExistingSite);
+
+ipc.on("app.previewSite", previewSite);
+ipc.on("app.publishSite", publishSite);
 
 function addNewSiteWindow() {
   app.addChildWindow({
@@ -62,4 +67,18 @@ function cloneExistingSite(event, url) {
     .catch(function(err) {
       console.log(err);
     });
+}
+
+function previewSite(event, siteDir) {
+  cli.build({ dir: siteDir });
+}
+
+function publishSite(event, siteDir) {
+  cli.build({ dir: siteDir }, function(error) {
+    if(error) console.log(error);
+    cli.serve({}, function() {
+      if(error) console.log(error);
+      // TODO need to stop server
+    });
+  });
 }
