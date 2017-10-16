@@ -22,6 +22,7 @@
     "electron-oauth2": "^3.0.0",
     "fs-extra": "^4.0.2",
     "klaw-sync": "^3.0.0",
-    "nodegit": "^0.20.2"
+    "nodegit": "^0.20.2",
+    "staticsite-cli": "1"
   }
 }
