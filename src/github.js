@@ -1,5 +1,5 @@
-var appdata = require('./appdata');
 var electronOauth2 = require('electron-oauth2');
+var appdata = require("./appdata");
 
 // TODO should support paging
 function request(url, opts, cb) {
