@@ -52,13 +52,3 @@
   margin-top: 5px;
   cursor: pointer;
 }
-
-#content {
-  width: 70%;
-  box-sizing: border-box;
-  float: left;
-}
-
-#content .header {
-  padding: 3px;
-}
