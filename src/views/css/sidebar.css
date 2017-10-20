@@ -10,37 +10,36 @@
   overflow: auto;
 }
 
-#sidebar .inner .menuItem .title {
-  padding: 7px;
-  color: inherit;
-  cursor: pointer;
-}
-#sidebar .inner .menuItem.site > .title {
-  padding: 15px;
-}
-#sidebar .inner .menuItem.site > .title > .toggle {
-  width: 10px;
-}
-
-#sidebar .inner .menuItem.site .actions {
-  padding: 7px;
+#sidebar .actions {
   background: #191c21;
   border-bottom: 1px solid #313131;
   font-size: 85%;
 }
-#sidebar .inner .menuItem.site .actions .button {
+#sidebar .actions .button {
   display: inline-block;
   color: inherit;
-  margin-right: 5px;
-}
-#sidebar .inner .menuItem.site .actions .button:last-child {
-  margin-right: 0;
+  padding: 5px;
+  text-decoration: none;
+  border-bottom: 1px solid #313131;
+  width: 100%;
 }
 
-#sidebar .inner .menuItem.site .files {
+#sidebar .menuItem .title {
+  padding: 7px;
+  color: inherit;
+  cursor: pointer;
+}
+#sidebar .menuItem.site > .title {
+  padding: 15px;
+}
+#sidebar .menuItem.site > .title > .toggle {
+  width: 10px;
+}
+
+#sidebar .menuItem.site .files {
   margin: 7px 20px 15px 20px;
 }
-#sidebar .inner .menuItem.file .fa {
+#sidebar .menuItem.file .fa {
   margin-right: 10px;
 }
 
