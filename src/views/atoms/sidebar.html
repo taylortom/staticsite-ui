@@ -100,7 +100,9 @@ $(function() {
     var $drawer = $('.drawer', $menuItem);
     var show = !$('.drawer', $menuItem).is(':visible');
 
-    (show) ? $drawer.slideDown() : $drawer.slideUp();
+    $('.drawer').slideUp();
+    if(show) $drawer.slideDown();
+
     $('.toggle', $menuItem.children('.title')).toggleClass('display-none');
   }
 
