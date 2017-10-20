@@ -11,10 +11,12 @@ $(function() {
   var path = require('path');
 
   var editor;
+  var interval;
 
   (function initAce() {
     editor = ace.edit("ace");
     editor.setTheme("ace/theme/monokai");
+    editor.on('change', onEditorChange);
   })();
 
   function getEditorMode(filepath) {
@@ -39,20 +41,37 @@ $(function() {
   events.on('editor.open', openFile);
 
   function openFile(filepath) {
-    if(!filepath) {
-      return;
+    try {
+      var contents = fs.readFileSync(filepath);
+    } catch(e) {
+      return console.error(error);
     }
-    editor.getSession().setMode(`ace/mode/${getEditorMode(filepath)}`);
-    fs.readFile(filepath, function(error, contents) {
-      if(error) {
-        return console.error(error);
-      }
-      events.trigger('content.setTitle', path.basename(filepath));
+    events.trigger('content.setTitle', path.basename(filepath));
 
-      editor.setValue(contents.toString());
-      editor.getSession().setUseWrapMode(true);
-      editor.gotoLine(0);
-    });
+    $('#ace').attr('data-file', filepath);
+
+    editor.getSession().setMode(`ace/mode/${getEditorMode(filepath)}`);
+    editor.setValue(contents.toString());
+    editor.getSession().setUseWrapMode(true);
+    editor.gotoLine(0);
+    editor.focus();
+  }
+
+  function saveFile() {
+    window.clearTimeout(interval);
+    interval = undefined;
+    console.log('saveFile', Date.now(), $('#ace').attr('data-file'));
+    try {
+      fs.writeFileSync($('#ace').attr('data-file'), editor.getValue());
+    } catch(e) {
+      console.error(e);
+    }
+  }
+
+  function onEditorChange(event) {
+    if(!interval) {
+      interval = window.setTimeout(saveFile, 1000);
+    }
   }
 });
 </script>
