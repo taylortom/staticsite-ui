@@ -10,6 +10,14 @@ module.exports = class JSONData {
     } catch(e) {
       if(e.code !== 'ENOENT') console.error(e);
     }
+
+    function _saveData() {
+      try {
+        fs.writeJsonSync(_DATA_PATH, _data, { spaces: 2 });
+      } catch(e) {
+        console.log(e);
+      }
+    }
     /**
     * Public API
     */
@@ -24,15 +32,8 @@ module.exports = class JSONData {
         //   authUser: userData
         // });
         _data[key] = value;
-        saveData();
+        _saveData();
       }
     };
-  }
-  _saveData() {
-    try {
-      fs.writeJsonSync(_DATA_PATH, data);
-    } catch(e) {
-      console.log(e);
-    }
   }
 };
