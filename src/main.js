@@ -12,11 +12,13 @@ electron.app.on("ready", function onElectronReady() {
   // load main controller
   require("./controllers/app");
 
+  var {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
+
   addWindow({
     id: "app",
     filename: "app.html",
-    width: 850,
-    height: 2000
+    width: width*0.75,
+    height: height
   });
 });
 
