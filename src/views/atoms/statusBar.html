@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="css/statusBar.css">
+<div id="statusBar">
+  <div class="text">Test</div>
+  <div class="loading"></div>
+</div>
+<script type="text/javascript">
+$(function() {
+  var events = require('../events');
+
+  events.on('status.set', function(text) {
+    var $el = $('#statusBar');
+    if(text) {
+      $('.text', $el).text(text);
+      $el.addClass('show');
+    }
+  });
+
+  events.on('status.hide', function() {
+    $('#statusBar').removeClass('show');
+  });
+});
+</script>

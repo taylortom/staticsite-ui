@@ -1,0 +1,23 @@
+#statusBar {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  transition: bottom 250;
+  left: 0;
+  width: 30%;
+  background: #21252b;
+  border-top: 1px solid #313131;
+}
+#statusBar.show {
+  display: block;
+  bottom: 0;
+}
+
+#statusBar .text {
+  padding: 7px;
+  font-size: 85%;
+}
+#statusBar .loading {
+  height: 5px;
+  background: #409aa8;
+}
