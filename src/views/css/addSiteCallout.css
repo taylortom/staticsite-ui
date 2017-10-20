@@ -1,7 +1,7 @@
 #addSiteType {
   position: fixed;
   top: 90px;
-  left: 190px;
+  left: 266px;
   z-index: 5000;
   padding: 20px;
   background: #1a1e22;
@@ -23,7 +23,7 @@
   height: 0;
   width: 0;
   top: 70px;
-  left: 200px;
+  left: 270px;
   color: #1a1e22;
   font-size: 30px;
 }
