@@ -29,7 +29,7 @@ $(function() {
       addListeners();
     });
     $('#sidebar').append(atomisr('statusBar.html'));
-  })()
+  })();
 
   function addListeners() {
     $(document).on('resize', resize);
@@ -74,6 +74,7 @@ $(function() {
           return basename === '.' || basename[0] !== '.';
         }
       });
+      items.splice(0,0,{ path: path.join(siteDir, '_data', 'config.json') });
     } catch(e) {
       $(`.menuItem.site[data-itemDir='${siteDir}']`).remove();
       return console.error(`Invalid site source at ${siteDir}`);
