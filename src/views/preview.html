@@ -1,0 +1,62 @@
+<head>
+  <title>Site Preview</title>
+</head>
+<link rel="stylesheet" href="./css/font-awesome.min.css">
+<link rel="stylesheet" href="./css/theme.css">
+<link rel="stylesheet" href="./css/preview.css">
+<div id="preview">
+  <div class="inner">
+    <div class="toolbar">
+      <div class="group">
+        <a href="#" class="desktop"><span class="fa fa-desktop"></span></a>
+        <a href="#" class="tablet"><span class="fa fa-tablet"></span></a>
+        <a href="#" class="mobile"><span class="fa fa-mobile"></span></a>
+      </div>
+    </div>
+    <iframe class="siteWrapper"></iframe>
+    <div class="status"></div>
+  </div>
+</div>
+<script>window.$ = window.jQuery = require('../libraries/jquery-3.2.1.min.js');</script>
+<script type="text/javascript">
+$(function() {
+  var atomisr = require('../atomisr');
+  var ipc = require('electron').ipcRenderer;
+
+  (function init() {
+    addListeners();
+  })();
+
+  function addListeners() {
+    ipc.on('preview.load', showSite);
+
+    $('#preview .toolbar a').click(resizePreview);
+  }
+
+  function showSite(event, url) {
+    $('iframe.siteWrapper').attr('src', url);
+    $('#preview .toolbar a.desktop').click();
+  }
+
+  function resizePreview(e) {
+    var $target = $(e.currentTarget);
+
+    $('#preview a').removeClass('selected');
+    $target.addClass('selected');
+
+    var $preview = $('#preview .siteWrapper');
+    if($target.hasClass('desktop')) {
+      $preview.width(1000);
+      return;
+    }
+    if($target.hasClass('tablet')) {
+      $preview.width(600);
+      return;
+    }
+    if($target.hasClass('mobile')) {
+      $preview.width(400);
+      return;
+    }
+  }
+});
+</script>

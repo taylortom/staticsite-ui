@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+}
+
+#preview {
+  height: 100%;
+}
+
+#preview .inner {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+#preview .toolbar {
+  background: #191c21;
+  border-bottom: 1px solid #272727;
+}
+#preview .toolbar .group {
+  display: inline-block;
+  padding: 0 10px;
+}
+#preview .toolbar a {
+  display: inline-block;
+  font-size: 30px;
+  color: #c3c3c3;
+  padding-bottom: 3px;
+  margin: 10px;
+  border-bottom: 2px solid rgba(0,0,0,0);
+}
+#preview .toolbar a span {
+  margin: 0;
+}
+#preview .toolbar a:hover {
+  border-color: inherit;
+}
+#preview .toolbar a.selected {
+  color: #40a1ca;
+  border-color: #40a1ca;
+}
+
+#preview .siteWrapper {
+  display: block;
+  flex: 85 1 auto;
+  margin: 0 auto;
+  border: none;
+  transition: width 1s;
+  overflow-y: scroll;
+}
+
+#preview .status {
+  flex: 5 1 auto;
+  background: #21252b;
+  border-top: 1px solid #313131;
+}

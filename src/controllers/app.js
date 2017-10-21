@@ -70,7 +70,31 @@ function cloneExistingSite(event, url) {
 }
 
 function previewSite(event, siteDir) {
-  cli.build({ dir: siteDir });
+  app.trigger('app', 'status.set', `Loading site preview`);
+  rebuildSite(siteDir, function(error) {
+    if(error) {
+      console.log(error);
+    }
+    cli.serve({}, function(error, data) {
+      if(error) {
+        console.log(error);
+      }
+      app.trigger('app', 'status.hide');
+      var win = app.windows.preview;
+      if(win) {
+        return app.trigger('preview', 'preview.load', data.url);
+      }
+      win = app.addWindow({
+        id: 'preview',
+        filename: 'preview.html',
+        width: app.screenSize.width*0.9,
+        height: app.screenSize.height
+      });
+      win.once('ready-to-show', function() {
+        app.trigger('preview', 'preview.load', data.url);
+      });
+    });
+  });
 }
 
 function publishSite(event, siteDir) {
