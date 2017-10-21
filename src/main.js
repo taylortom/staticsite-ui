@@ -47,17 +47,24 @@ function Main() {
 }
 
 function addWindow(opts) {
+  if(opts.filename && opts.url) {
+    return console.log(`Cannot add window, filename (${opts.filename}) and url (${opts.url}) specified`);
+  }
   var id = opts.id;
   delete opts.id;
   var filename = opts.filename;
   delete opts.filename;
+  var url = opts.url;
+  delete opts.url;
   // create window
   var win = new BrowserWindow(Object.assign({
     titleBarStyle: 'hiddenInset',
     backgroundColor: '#282c34'
   }, opts));
   instance.windows[id] = win;
-  win.loadURL(`file://${__dirname}/views/${filename}`);
+  win.loadURL(url || `file://${__dirname}/views/${filename}`);
+
+  return win;
 }
 
 function removeWindow(id) {
