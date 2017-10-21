@@ -63,6 +63,9 @@ function addWindow(opts) {
   }, opts));
   if(opts.show !== false) {
     win.once('ready-to-show', win.show);
+    win.once('close', function() {
+      removeWindow(id);
+    });
   }
   instance.windows[id] = win;
   win.loadURL(url || `file://${__dirname}/views/${filename}`);
@@ -72,8 +75,8 @@ function addWindow(opts) {
 
 function removeWindow(id) {
   if(instance.windows[id]) {
-    instance.windows[id].close();
-    instance.windows[id] = null;
+    instance.windows[id].destroy();
+    delete instance.windows[id];
   }
 }
 
