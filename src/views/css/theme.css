@@ -22,6 +22,7 @@ body {
 }
 
 ::-webkit-scrollbar
+::-webkit-scrollbar-button,
 ::-webkit-scrollbar-track-piece,
 ::-webkit-scrollbar-track,
 ::-webkit-scrollbar-corner {
@@ -36,9 +37,6 @@ body {
   border-radius: 5px;
 }
 /* TODO fix these */
-::-webkit-scrollbar-button {
-  background: red;
-}
 ::-webkit-resizer {
   background: pink;
 }
