@@ -1,23 +1,33 @@
 #statusBar {
-  display: none;
   position: fixed;
-  bottom: 30px;
-  transition: bottom 250;
   left: 0;
+  bottom: 0;
   width: 30%;
+  max-height: 0;
+  overflow-y: hidden;
   background: #21252b;
-  border-top: 1px solid #313131;
+  border-top: 1px solid #3a3939;
+  transition-property: max-height;
+  transition-duration: 1s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
 #statusBar.show {
-  display: block;
-  bottom: 0;
+  max-height: 50px;
 }
 
 #statusBar .text {
   padding: 7px;
   font-size: 85%;
+  border-bottom: 1px solid #656565;
 }
 #statusBar .loading {
   height: 5px;
-  background: #409aa8;
+  background-image: repeating-linear-gradient(-45deg, #40a1ca, #40a1ca 11px, #2e5f73 10px, #2e5f73 20px);
+  background-size: 28px 28px;
+  animation: move .7s linear infinite;
+}
+
+@keyframes move {
+  0% { background-position: 0 0; }
+  100% { background-position: 28px 0; }
 }
