@@ -26,6 +26,8 @@ function Main() {
   this.windows = {};
   this.Constants = Constants;
 
+  this.addWindow = addWindow;
+  this.removeWindow = removeWindow;
   this.addChildWindow = function(opts) {
     opts.parent = instance.windows.app;
     addWindow(opts);
@@ -35,6 +37,13 @@ function Main() {
       removeWindow(id);
     }
   };
+  this.trigger = function(windowId, eventName, data) {
+    var win = this.windows[windowId];
+    if(!win) {
+      return console.log(`Cannot trigger event, unknown window '${windowId}'`);
+    }
+    win.webContents.send(eventName, data);
+  }
 }
 
 function addWindow(opts) {
@@ -56,6 +65,10 @@ function removeWindow(id) {
     instance.windows[id].close();
     instance.windows[id] = null;
   }
+}
+
+function getScreenSize() {
+  return {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
 }
 
 function getInstance() {
