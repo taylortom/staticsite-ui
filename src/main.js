@@ -58,8 +58,12 @@ function addWindow(opts) {
   delete opts.url;
   // create window
   var win = new BrowserWindow(Object.assign({
-    backgroundColor: '#282c34'
+    backgroundColor: '#282c34',
+    show: false
   }, opts));
+  if(opts.show !== false) {
+    win.once('ready-to-show', win.show);
+  }
   instance.windows[id] = win;
   win.loadURL(url || `file://${__dirname}/views/${filename}`);
 
