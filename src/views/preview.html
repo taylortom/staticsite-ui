@@ -13,7 +13,7 @@
         <a href="#" class="mobile"><span class="fa fa-mobile"></span></a>
       </div>
     </div>
-    <iframe class="siteWrapper"></iframe>
+    <webview class="siteWrapper"></webview>
     <div class="status"></div>
   </div>
 </div>
@@ -34,7 +34,7 @@ $(function() {
   }
 
   function showSite(event, url) {
-    $('iframe.siteWrapper').attr('src', url);
+    $('#preview .siteWrapper').attr('src', url);
     $('#preview .toolbar a.desktop').click();
   }
 

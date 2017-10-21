@@ -40,12 +40,12 @@ body {
 }
 
 #preview .siteWrapper {
-  display: block;
   flex: 85 1 auto;
   margin: 0 auto;
   border: none;
   transition: width 1s;
   overflow-y: scroll;
+  width: 100%;
 }
 
 #preview .status {
