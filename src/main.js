@@ -58,7 +58,6 @@ function addWindow(opts) {
   delete opts.url;
   // create window
   var win = new BrowserWindow(Object.assign({
-    titleBarStyle: 'hiddenInset',
     backgroundColor: '#282c34'
   }, opts));
   instance.windows[id] = win;
