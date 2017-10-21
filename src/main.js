@@ -12,7 +12,7 @@ electron.app.on("ready", function onElectronReady() {
   // load main controller
   require("./controllers/app");
 
-  var {width, height} = electron.screen.getPrimaryDisplay().workAreaSize;
+  instance.screenSize = getScreenSize();
 
   addWindow({
     id: "app",
