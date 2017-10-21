@@ -74,11 +74,13 @@ function previewSite(event, siteDir) {
 }
 
 function publishSite(event, siteDir) {
-  cli.build({ dir: siteDir }, function(error) {
+  console.log('publishing live site', siteDir);
+  rebuildSite(siteDir, function(error) {
     if(error) console.log(error);
-    cli.serve({}, function() {
-      if(error) console.log(error);
-      // TODO need to stop server
-    });
+    // TODO upload to server
   });
+}
+
+function rebuildSite(siteDir, cb) {
+  return cli.build({ dir: siteDir }, cb);
 }
