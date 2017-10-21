@@ -6,17 +6,25 @@
 <script type="text/javascript">
 $(function() {
   var events = require('../events');
+  var ipc = require('electron').ipcRenderer;
 
-  events.on('status.set', function(text) {
+  events.on('status.set', setText);
+  ipc.on('status.set', setText);
+
+  events.on('status.hide', hide);
+  ipc.on('status.hide', hide);
+
+  function setText(event, text) {
+    if(!text) text = event;
     var $el = $('#statusBar');
     if(text) {
       $('.text', $el).text(text);
       $el.addClass('show');
     }
-  });
+  }
 
-  events.on('status.hide', function() {
+  function hide() {
     $('#statusBar').removeClass('show');
-  });
+  }
 });
 </script>
