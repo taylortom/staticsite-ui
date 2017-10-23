@@ -1,9 +1,9 @@
 var git = require("nodegit");
 var ipc = require("electron").ipcMain;
 var path = require("path");
-var cli = require("staticsite-cli");
 
 var app = require("../main");
+var cli = require("../clidist");
 var helpers = require("../helpers");
 
 var WIN_NEW_SITE_ID = "addNewSite";
@@ -75,7 +75,7 @@ function previewSite(event, siteDir) {
     if(error) {
       console.log(error);
     }
-    cli.serve({}, function(error, data) {
+    cli.serve({ dir: siteDir }, function(error, data) {
       if(error) {
         console.log(error);
       }
