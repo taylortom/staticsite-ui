@@ -81,7 +81,8 @@ body {
 }
 #content {
   background-color: #21252b;
-  border-right: 1px solid #1a1e22;
+  border-top: 1px solid #313131;
+  border-left: 1px solid #313131;
   border-radius: 3px;
 }
 #content .header {
