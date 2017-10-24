@@ -35,7 +35,6 @@ function addExistingSiteWindow() {
     filename: "addExistingSite.html",
     width: 450,
     height: 600,
-    frame: false,
     alwaysOnTop: true
   });
 }

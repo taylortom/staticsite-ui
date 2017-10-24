@@ -59,6 +59,8 @@ function addWindow(opts) {
   // create window
   var win = new BrowserWindow(Object.assign({
     backgroundColor: '#282c34',
+    frame: false,
+    titleBarStyle: 'hiddenInset',
     show: false
   }, opts));
   if(opts.show !== false) {

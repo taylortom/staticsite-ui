@@ -3,9 +3,12 @@
 }
 
 .grab-bar {
-  position: absolute;
   height: 40px;
   width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  box-sizing: border-box;
   -webkit-app-region: drag;
 }
 
