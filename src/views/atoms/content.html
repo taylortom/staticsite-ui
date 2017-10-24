@@ -30,7 +30,7 @@ $(function() {
   }
 
   function resize() {
-    $('#content').height($(window).height()-$('#content').offset().top);
+    $('#content > .inner').height($(window).height()-$('#content > .inner').offset().top);
   }
 });
 </script>
