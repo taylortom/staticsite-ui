@@ -17,7 +17,7 @@ $(function() {
   })();
 
   function addListeners() {
-    $(document).on('resize', resize);
+    $(window).on('resize', resize);
     events.on('content.setTitle', updateTitle);
   }
 

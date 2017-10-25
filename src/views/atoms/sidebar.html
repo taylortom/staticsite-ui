@@ -32,7 +32,7 @@ $(function() {
   })();
 
   function addListeners() {
-    $(document).on('resize', resize);
+    $(window).on('resize', resize);
 
     $('.site').click(toggleFiles);
     $('.file').click(openFile);
@@ -41,6 +41,7 @@ $(function() {
   }
 
   function resize() {
+    $('#addSiteType').remove();
     $('#sidebar > .sites').height($(window).height()-$('#sidebar > .sites').offset().top);
   }
 
@@ -124,7 +125,14 @@ $(function() {
     if($callout.length) {
       $callout.remove();
     } else {
-      $('body').append(atomisr('addSiteCallout.html'));
+      var $target = $(e.currentTarget);
+      var $el = $(atomisr('addSiteCallout.html'));
+      var buffer = 10;
+      $el.css({
+        top: $target.offset().top + $target.height() + buffer,
+        left: $target.offset().left + buffer
+      });
+      $('body').append($el);
     }
   }
 });

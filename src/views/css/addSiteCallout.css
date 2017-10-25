@@ -1,7 +1,5 @@
 #addSiteType {
   position: fixed;
-  top: 90px;
-  left: 266px;
   z-index: 5000;
   padding: 20px;
   background: #1a1e22;
@@ -19,11 +17,9 @@
 }
 
 #addSiteType span.fa {
-  position: fixed;
-  height: 0;
-  width: 0;
-  top: 70px;
-  left: 270px;
+  position: absolute;
+  top: -20px;
+  left: 10px;
   color: #1a1e22;
   font-size: 30px;
 }
