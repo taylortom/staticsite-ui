@@ -1,7 +1,7 @@
 var electron = require("electron");
 var fs = require("fs-extra");
 
-var Constants = require("./constants");
+var Constants = require("./data/constants");
 
 var BrowserWindow = require("electron").BrowserWindow;
 var ipc = require("electron").ipcMain;
