@@ -9,20 +9,30 @@ body {
 #preview .inner {
   display: flex;
   flex-flow: column;
+  flex-direction: column;
+  justify-content: flex-start;
   height: 100%;
 }
 
-#preview .toolbar {
+#preview .grab-bar {
+  flex: 1 1 35px;
   background: #191c21;
   border-bottom: 1px solid #272727;
 }
+
+#preview .toolbar {
+  position: fixed;
+  margin-top: 50px;
+  margin-left: 10px;
+  background: #191c21;
+  border: 1px solid #272727;
+}
 #preview .toolbar .group {
   display: inline-block;
-  padding: 0 10px;
 }
 #preview .toolbar a {
   display: inline-block;
-  font-size: 30px;
+  font-size: 24px;
   color: #c3c3c3;
   padding-bottom: 3px;
   margin: 10px;
@@ -40,16 +50,10 @@ body {
 }
 
 #preview .siteWrapper {
-  flex: 85 1 auto;
+  flex: 1 1 100%;
   margin: 0 auto;
   border: none;
   transition: width 1s;
   overflow-y: scroll;
   width: 100%;
-}
-
-#preview .status {
-  flex: 5 1 auto;
-  background: #21252b;
-  border-top: 1px solid #313131;
 }
