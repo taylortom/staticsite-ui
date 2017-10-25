@@ -1,5 +1,5 @@
 var electronOauth2 = require('electron-oauth2');
-var appdata = require("./data/appdata");
+var appdata = require("./data/appdata")();
 
 // TODO should support paging
 function request(url, opts, cb) {
@@ -45,15 +45,14 @@ var exports = module.exports = {
       webPreferences: { nodeIntegration: false }
     });
     githubOauth.getAccessToken({}).then(function(tokenData) {
+      appdata.set('authToken', tokenData.access_token);
       exports.getUser(function(error, userData) {
         if(error) {
           return console.error(error);
         }
-        appdata.set('authToken', tokenData.access_token);
         appdata.set('authUser', userData);
       });
-
-      done(null, data.access_token);
+      done(null, tokenData.access_token);
     }).catch(function(error) {
       done(error);
     });
@@ -64,12 +63,7 @@ var exports = module.exports = {
     if(user) {
       return cb(null, user);
     }
-    request('user', function(error, data) {
-      if(error) {
-        return cb(error);
-      }
-      cb(null, data);
-    });
+    request('user', cb);
   },
 
   getRepos: function(cb) {

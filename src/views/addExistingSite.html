@@ -28,12 +28,12 @@
       $('.content').empty();
       async.waterfall([
         function(cb) {
-          github.authenticate(cb);
+          github.authenticate(function(error) { cb(error); });
         },
-        function(token, cb) {
-          github.getUser(cb);
+        function(cb) {
+          github.getUser(function(error) { cb(error); });
         },
-        function(user, cb) {
+        function(cb) {
           github.getRepos(cb);
         },
         function(repos, cb) {
