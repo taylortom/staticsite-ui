@@ -4,5 +4,6 @@ module.exports = {
   Root: path.resolve(__dirname, "..", ".."),
   Folders: {
     Sites: 'sites'
-  }
+  },
+  BlankSiteRepo: 'https://github.com/taylortom/staticsite-skele.git'
 };

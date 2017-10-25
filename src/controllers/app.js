@@ -5,14 +5,15 @@ var path = require("path");
 var app = require("../main");
 var cli = require("../clidist");
 var helpers = require("../helpers");
+var sitedata = require("../data/sitedata");
 
 var WIN_NEW_SITE_ID = "addNewSite";
 var WIN_EXISTING_SITE_ID = "addExistingSite";
 
 ipc.on("app.addNewSite", addNewSiteWindow);
-ipc.on("app.addExistingSite", addExistingSiteWindow);
-
 ipc.on("app.createNewSite", createNewSite);
+
+ipc.on("app.addExistingSite", addExistingSiteWindow);
 ipc.on("app.cloneExistingSite", cloneExistingSite);
 
 ipc.on("app.previewSite", previewSite);
@@ -41,7 +42,19 @@ function addExistingSiteWindow() {
 
 function createNewSite(event, data) {
   app.removeChildWindow(WIN_NEW_SITE_ID);
-  console.log('createNewSite:', data);
+  var slug = helpers.slugify(data.name);
+  var dirname = path.join(app.Constants.Root, "sites", slug);
+  git.Clone(app.Constants.BlankSiteRepo, dirname)
+    .then(function(repo) {
+      var sd = sitedata(dirname);
+      console.log(sd);
+      // TODO:set config,
+      // TODO send event
+    })
+    .catch(function(err) {
+      // TODO send error to UI
+      console.log(err);
+    });
 }
 
 function cloneExistingSite(event, url) {
@@ -50,20 +63,17 @@ function cloneExistingSite(event, url) {
     url = 'https://github.com/taylortom/staticsite-skele.git';
   }
   var dirname = path.basename(url).replace('.git', '');
-  console.log('cloneExistingSite:', url, dirname);
-  //
-  //
-  return;
-  //
-  //
   git.Clone(url, path.join(app.Constants.Root, "sites", dirname))
     .then(function(repo) {
-      app.windows.app.webContents.send("app.siteAdded", {
-        name: data.name,
-        dirname: dirname
-      });
+      var sd = sitedata(dirname);
+      console.log(sd.get('name'));
+      // app.windows.app.webContents.send("app.siteAdded", {
+      //   name: data.name,
+      //   dirname: dirname
+      // });
     })
     .catch(function(err) {
+      // TODO send error to UI
       console.log(err);
     });
 }
