@@ -16,10 +16,10 @@ $(function() {
   var klaw = require('klaw-sync');
   var path = require('path');
 
-  var atomisr = require('../atomisr');
+  var atomisr = require('../utils/atomisr');
   var Constants = require('../data/constants');
-  var events = require('../events');
-  var helpers = require('../helpers');
+  var events = require('../utils/events');
+  var helpers = require('../utils/helpers');
 
   var SITES_DIR = path.join(Constants.Root, Constants.Folders.Sites);
 

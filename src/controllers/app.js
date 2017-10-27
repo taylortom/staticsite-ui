@@ -3,8 +3,8 @@ var ipc = require("electron").ipcMain;
 var path = require("path");
 
 var app = require("../main");
-var cli = require("../clidist");
-var helpers = require("../helpers");
+var cli = require("../utils/clidist");
+var helpers = require("../utils/helpers");
 var sitedata = require("../data/sitedata");
 
 var WIN_NEW_SITE_ID = "addNewSite";

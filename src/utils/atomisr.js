@@ -1,9 +1,14 @@
 var fs = require('fs');
 var path = require('path');
 
+var Constants = require('../data/constants');
+/**
+* Simple templating
+* Loads HTML page, and replaces data attributes surrounded with {{}}
+*/
 module.exports = function Atomisr(filepath, data) {
   data = data || {};
-  var fileContents = fs.readFileSync(path.join(__dirname, 'views', 'atoms', filepath)).toString();
+  var fileContents = fs.readFileSync(path.join(__dirname, '..', 'views', 'atoms', filepath)).toString();
   var templateStrings = fileContents.match(RegExp(`{{.+?}}`, 'g')) || [];
   templateStrings.forEach(function(templateString) {
     var keys = templateString.slice(2,-2).split('.');

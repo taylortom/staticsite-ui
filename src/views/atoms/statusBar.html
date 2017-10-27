@@ -5,7 +5,7 @@
 </div>
 <script type="text/javascript">
 $(function() {
-  var events = require('../events');
+  var events = require('../utils/events');
   var ipc = require('electron').ipcRenderer;
 
   events.on('status.set', setText);
