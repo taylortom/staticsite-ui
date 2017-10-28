@@ -82,14 +82,15 @@ body {
 .addSite:hover {
   text-decoration: underline;
 }
-#content {
-  background-color: #21252b;
+
+#content .header {
   border-top: 1px solid #313131;
   border-left: 1px solid #313131;
   border-radius: 3px;
-}
-#content .header {
   border-bottom: 1px solid rgb(56, 56, 56);
   background: rgba(33, 37, 43, 0.92);
   text-align: center;
+}
+#content .inner {
+  background-color: #21252b;
 }
