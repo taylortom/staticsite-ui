@@ -46,42 +46,44 @@ $(function() {
   }
 
   function renderSites(cb) {
-    fs.readdir(SITES_DIR, function(error, contents) {
+    fs.readdir(SITES_DIR, function(error, sites) {
       var $container = $('.sites .inner');
       $container.empty();
 
-      contents.forEach(function(item) {
-        if(item[0] === ".") return;
-        var itemDir = path.join(SITES_DIR, item);
+      sites.forEach(function(site) {
+        if(site[0] === ".") return;
+        var dir = path.join(SITES_DIR, site);
         var $el = $(atomisr('menuItemSite.html', {
           class: 'site',
-          item: item,
-          itemDir: itemDir
+          item: site,
+          itemDir: dir
         }));
         $('.drawer', $el).slideUp(0);
         $container.append($el);
-        renderFiles(itemDir);
+        renderSite(dir);
       });
       if(typeof cb === 'function') cb();
     });
   }
 
-  function renderFiles(siteDir) {
+  function renderSite(dir) {
+    var $container = $(`.menuItem[data-itemDir="${dir}"] .files .inner`);
+    $container.empty();
+
     try {
-      var items = klaw(path.join(siteDir, '_pages'), {
+      var items = klaw(path.join(dir, '_pages'), {
         noRecurseOnFailedFilter: true,
         filter: function(item) {
           var basename = path.basename(item.path);
           return basename === '.' || basename[0] !== '.';
         }
       });
-      items.splice(0,0,{ path: path.join(siteDir, '_data', 'config.json') });
     } catch(e) {
-      $(`.menuItem.site[data-itemDir='${siteDir}']`).remove();
-      return console.error(`Invalid site source at ${siteDir}`);
+      $(`.menuItem.site[data-itemDir='${dir}']`).remove();
+      return console.error(`Invalid site source at ${dir}`);
     }
-    var $container = $(`.menuItem[data-itemDir="${siteDir}"] .files .inner`);
-    $container.empty();
+    items.splice(0, 0, { path: path.join(dir, '_data', 'config.json') });
+
     items.forEach(function(item) {
       if(fs.statSync(item.path).isDirectory()) {
         return;
