@@ -1,0 +1,29 @@
+#siteMenu {
+  background: #191c21;
+  border-bottom: 1px solid #272727;
+  font-size: 85%;
+  padding: 0 10px;
+}
+#siteMenu .group {
+  display: inline-block;
+}
+#siteMenu .group {
+  border-right: 1px solid rgba(255,255,255,0.1);
+  padding-right: 10px;
+  margin-right: 10px;
+}
+#siteMenu .group:last-child {
+  border-right: none;
+  margin-right: 0;
+}
+
+#siteMenu .button {
+  display: inline-block;
+  color: inherit;
+  padding: 5px;
+  text-decoration: none;
+  text-align: center;
+}
+#siteMenu .button:hover {
+  text-decoration: underline;
+}

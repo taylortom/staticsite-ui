@@ -10,24 +10,6 @@
   overflow: auto;
 }
 
-#sidebar .actions {
-  background: #191c21;
-  border-bottom: 1px solid #272727;
-  font-size: 85%;
-  display: flex;
-}
-#sidebar .actions .button {
-  display: inline-block;
-  color: inherit;
-  padding: 5px;
-  text-decoration: none;
-  flex: auto;
-  text-align: center;
-}
-#sidebar .actions .button:hover {
-  text-decoration: underline;
-}
-
 #sidebar .menuItem .title {
   padding: 7px;
   color: inherit;

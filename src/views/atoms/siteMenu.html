@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="css/siteMenu.css">
+<div id="siteMenu">
+  <div class="group">
+    <a href="#" class="button addPage"><span class="fa fa-plus"> </span> Add page</a>
+  </div>
+  <div class="group">
+    <a href="#" class="button save"><span class="fa fa-floppy-o"> </span> Save</a>
+    <a href="#" class="button preview"><span class="fa fa-cogs"></span> Preview</a>
+    <a href="#" class="button publish"><span class="fa fa-cloud-upload"> </span> Publish</a>
+  </div>
+</div>
+<script type="text/javascript">
+$(function() {
+  var _ = require('underscore');
+  var ipc = require('electron').ipcRenderer;
+  var events = require('../utils/events');
+
+  $('#siteMenu').slideUp(0);
+
+  events.on('sidebar.site.show', function(site) {
+    $('#siteMenu').slideDown();
+  });
+  events.on('sidebar.site.hide', function(site) {
+    $('#siteMenu').slideUp();
+  });
+
+  $('#siteMenu a.addPage').click(addPage);
+  $('#siteMenu a.save').click(saveSite);
+  $('#siteMenu a.preview').click(previewSite);
+  $('#siteMenu a.publish').click(publishSite);
+
+  function getOpenSite() {
+    return $('.menuItem.open').attr('data-itemdir');
+  }
+
+  function sendEvent(eventName, data) {
+    var site = getOpenSite();
+    if(site) {
+      ipc.send(`app.${eventName}`, _.extend({}, data, { site: site }));
+    }
+  }
+
+  function addPage(e) {
+    e && e.stopPropagation();
+    sendEvent('addPage', { title: { text: '' }});
+  }
+
+  function saveSite(e) {
+    e && e.stopPropagation();
+    sendEvent(`saveSite`);
+  }
+
+  function previewSite(e) {
+    e && e.stopPropagation();
+    sendEvent(`previewSite`);
+  }
+
+  function publishSite(e) {
+    e && e.stopPropagation();
+    sendEvent(`publishSite`);
+  }
+});
+</script>

@@ -24,6 +24,7 @@
     "fs-extra": "^4.0.2",
     "klaw-sync": "^3.0.0",
     "nodegit": "^0.20.2",
-    "staticsite-cli": "1"
+    "staticsite-cli": "1",
+    "underscore": "^1.8.3"
   }
 }
