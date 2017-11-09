@@ -1,3 +1,4 @@
+var fs = require("fs");
 var git = require("nodegit");
 var ipc = require("electron").ipcMain;
 var path = require("path");
@@ -15,6 +16,8 @@ ipc.on("app.createNewSite", createNewSite);
 
 ipc.on("app.addExistingSite", addExistingSiteWindow);
 ipc.on("app.cloneExistingSite", cloneExistingSite);
+
+ipc.on("app.addPage", addPage);
 
 ipc.on("app.previewSite", previewSite);
 ipc.on("app.publishSite", publishSite);
@@ -76,6 +79,31 @@ function cloneExistingSite(event, url) {
       // TODO send error to UI
       console.log(err);
     });
+}
+
+function addPage(event, data) {
+  if(!data.title || !data.title.text ) {
+    return console.error('app.addPage: missing page title data');
+  }
+  var slug = helpers.slugify(data.title.text);
+  // infer site name from data.site
+  var sd = new sitedata(data.site.split(path.sep).pop());
+
+  var pages = sd.get('pages');
+  if(pages[slug]) {
+    return console.log(`Cannot create ${slug}, it already exists`);
+  }
+  // add data to config.json
+  pages[slug] = {
+    title: {
+      text: data.title.text,
+      show: data.title.show || true
+    },
+    subDir: data.subDir || true
+  };
+  sd.set('pages', pages);
+  // create .md
+  fs.writeFileSync(path.join(data.site, '_pages', slug + '.md'), "");
 }
 
 function previewSite(event, siteDir) {
