@@ -105,9 +105,18 @@ $(function() {
     var show = !$('.drawer', $menuItem).is(':visible');
 
     $('.drawer').slideUp();
-    if(show) $drawer.slideDown();
+    $('.menuItem').removeClass('open');
+
+    if(show) {
+      events.trigger('sidebar.site.show', $menuItem.attr('data-itemdir'));
+      $drawer.slideDown();
+    } else {
+      events.trigger('sidebar.site.hide', $menuItem.attr('data-itemdir'));
+    }
 
     $('.toggle', $menuItem.children('.title')).toggleClass('display-none');
+    $menuItem.addClass('open');
+
   }
 
   function openFile(e) {
