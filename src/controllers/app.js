@@ -83,11 +83,10 @@ function cloneExistingSite(event, url) {
 }
 
 function addPage(event, data) {
-  if(!data.title || !data.title.text ) {
+  if(!data.title || !data.title.text) {
     return console.error('app.addPage: missing page title data');
   }
   var slug = helpers.slugify(data.title.text);
-  // infer site name from data.site
   var sd = new sitedata(data.site.split(path.sep).pop());
 
   var pages = sd.get('pages');
