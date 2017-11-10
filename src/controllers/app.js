@@ -1,4 +1,4 @@
-var fs = require("fs");
+var fs = require("fs-extra");
 var git = require("nodegit");
 var ipc = require("electron").ipcMain;
 var path = require("path");
@@ -18,6 +18,7 @@ ipc.on("app.addExistingSite", addExistingSiteWindow);
 ipc.on("app.cloneExistingSite", cloneExistingSite);
 
 ipc.on("app.addPage", addPage);
+ipc.on("app.removePage", removePage);
 
 ipc.on("app.previewSite", previewSite);
 ipc.on("app.publishSite", publishSite);
@@ -104,6 +105,25 @@ function addPage(event, data) {
   sd.set('pages', pages);
   // create .md
   fs.writeFileSync(path.join(data.site, '_pages', slug + '.md'), "");
+}
+
+function removePage(event, data) {
+  if(!data.site || !data.page) {
+    return console.error('app.removePage: missing data');
+  }
+  var sd = new sitedata(data.site.split(path.sep).pop());
+  var pages = sd.get('pages');
+
+  if(pages[data.page]) {
+    delete pages[data.page];
+    sd.set('pages', pages);
+    fs.remove(path.join(data.site, '_pages', data.page + '.md'), function(error) {
+      if(error) {
+        return console.log(error);
+      }
+      console.log(`Successfully removed page ${data.page}`);
+    });
+  }
 }
 
 function previewSite(event, siteDir) {
