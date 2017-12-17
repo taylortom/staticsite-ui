@@ -20,6 +20,7 @@ ipc.on("app.cloneExistingSite", cloneExistingSite);
 ipc.on("app.addPage", addPage);
 ipc.on("app.removePage", removePage);
 
+ipc.on("app.saveSite", saveSite);
 ipc.on("app.previewSite", previewSite);
 ipc.on("app.publishSite", publishSite);
 
@@ -125,13 +126,17 @@ function removePage(event, data) {
   }
 }
 
-function previewSite(event, siteDir) {
+function saveSite(event, siteData) {
+  console.log('saveSite:', siteData.site);
+}
+
+function previewSite(event, siteData) {
   app.trigger('app', 'status.set', `Loading site preview`);
-  rebuildSite(siteDir, function(error) {
+  rebuildSite(siteData.site, function(error) {
     if(error) {
       console.log(error);
     }
-    cli.serve({ dir: siteDir }, function(error, data) {
+    cli.serve({ dir: siteData.site }, function(error, data) {
       if(error) {
         console.log(error);
       }
@@ -153,9 +158,9 @@ function previewSite(event, siteDir) {
   });
 }
 
-function publishSite(event, siteDir) {
-  console.log('publishing live site', siteDir);
-  rebuildSite(siteDir, function(error) {
+function publishSite(event, siteData) {
+  console.log('publishing live site', siteData.site);
+  rebuildSite(siteData.site, function(error) {
     if(error) console.log(error);
     // TODO upload to server
   });
