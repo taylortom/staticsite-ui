@@ -22,7 +22,8 @@ input {
   outline: none;
   margin-top: 15px;
   padding: 12px;
-  border: 1px solid #454950;
+  border-width: 1px;
+  border-style: solid;
   font-family: inherit;
   font-size: inherit;
   color: inherit;

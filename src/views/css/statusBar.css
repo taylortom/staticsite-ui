@@ -6,7 +6,8 @@
   max-height: 0;
   overflow-y: hidden;
   background: #21252b;
-  border-top: 1px solid #3a3939;
+  border-top-width: 1px;
+  border-top-style: solid;
   transition-property: max-height;
   transition-duration: 1s;
   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
@@ -18,11 +19,11 @@
 #statusBar .text {
   padding: 7px;
   font-size: 85%;
-  border-bottom: 1px solid #656565;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
 }
 #statusBar .loading {
   height: 5px;
-  background-image: repeating-linear-gradient(-45deg, #40a1ca, #40a1ca 11px, #2e5f73 10px, #2e5f73 20px);
   background-size: 28px 28px;
   animation: move .7s linear infinite;
 }

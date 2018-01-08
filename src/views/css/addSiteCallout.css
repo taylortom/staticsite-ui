@@ -2,8 +2,8 @@
   position: fixed;
   z-index: 5000;
   padding: 20px;
-  background: #1a1e22;
-  border: 1px solid #313131;
+  border-width: 1px;
+  border-style: solid;
   border-radius: 3px;
 }
 #addSiteType a {
@@ -20,6 +20,5 @@
   position: absolute;
   top: -20px;
   left: 10px;
-  color: #1a1e22;
   font-size: 30px;
 }

@@ -1,6 +1,6 @@
 #siteMenu {
-  background: #191c21;
-  border-bottom: 1px solid #272727;
+  border-width: 1px;
+  border-style: solid;
   font-size: 85%;
   padding: 0 10px;
 }

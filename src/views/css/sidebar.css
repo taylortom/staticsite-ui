@@ -4,6 +4,8 @@
   float: left;
 }
 #sidebar .header {
+  font-size: 20px;
+  font-weight: bold;
   padding: 15px;
 }
 #sidebar > .inner {
@@ -17,20 +19,34 @@
 }
 #sidebar .menuItem.site > .title {
   padding: 15px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
 }
 #sidebar .menuItem.site > .title > .toggle {
   width: 10px;
+  font-size: 10px;
 }
 
 #sidebar .menuItem.site .files {
   margin: 7px 20px 15px 20px;
+}
+
+#sidebar .inner .menuItem.file {
+  font-size: 75%;
+}
+#sidebar .inner .menuItem.file .title:hover {
+  text-decoration: underline;
 }
 #sidebar .menuItem.file .fa {
   margin-right: 10px;
 }
 
 .addSite {
+  font-size: 14px;
   float: right;
   margin-top: 5px;
   cursor: pointer;
+}
+.addSite:hover {
+  text-decoration: underline;
 }

@@ -1,3 +1,40 @@
 #app .grab-bar {
+  width: 100%;
+  padding-top: 10px;
   margin-bottom: 15px;
+  background: none;
+  font-size: 16px;
+  text-align: center;
+  box-sizing: border-box;
+  -webkit-app-region: drag;
+}
+
+body {
+  margin: 0;
+  overflow-y: hidden;
+  -webkit-user-select: none;
+}
+
+.fa {
+  margin-right: 5px;
+}
+
+::-webkit-scrollbar
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: none;
+}
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 5px;
+}
+/* TODO fix these */
+::-webkit-resizer {
+  background: pink;
 }

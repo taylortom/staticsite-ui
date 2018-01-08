@@ -1,71 +1,19 @@
-.display-none {
-  display: none !important;
-}
-
-.grab-bar {
-  height: 40px;
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  text-align: center;
-  box-sizing: border-box;
-  -webkit-app-region: drag;
-}
-
-.fa {
-  margin-right: 5px;
+@font-face {
+  font-family: "Droid Serif";
+  src: url(../fonts/DroidSerif-Regular.ttf) format("truetype");
 }
 
 body {
-  margin: 0;
-  font-family: serif;
+  font-family: 'Droid Serif', serif;
   color: #abb2bb;
-  overflow-y: hidden;
-  -webkit-user-select: none;
 }
 
-::-webkit-scrollbar
-::-webkit-scrollbar-button,
-::-webkit-scrollbar-track-piece,
-::-webkit-scrollbar-track,
-::-webkit-scrollbar-corner {
-  background: none;
-}
-::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.1);
-  border-radius: 5px;
-}
-/* TODO fix these */
-::-webkit-resizer {
-  background: pink;
-}
-
-
-#header .title {
-  font-size: 18px;
-  text-align: center;
-}
-#sidebar .header {
-  font-size: 20px;
-  font-weight: bold;
-  padding: 15px;
-}
 #sidebar .inner .menuItem.site > .title {
   background-color: #21252b;
-  border-bottom: 1px solid #313131;
+  border-bottom-color: #313131;
 }
 #sidebar .inner .menuItem.site > .title:hover {
   color: #e0e0e0;
-}
-#sidebar .inner .menuItem.site > .title > .toggle {
-  font-size: 10px;
-}
-#sidebar .inner .menuItem.file {
-  font-size: 75%;
 }
 #sidebar .inner .menuItem.file .title {
   color: #777d85;
@@ -73,24 +21,91 @@ body {
 #sidebar .inner .menuItem.file.selected .title {
   color: #40a1ca;
 }
-#sidebar .inner .menuItem.file .title:hover {
-  text-decoration: underline;
+
+input {
+  border-color: #454950;
 }
-.addSite {
-  font-size: 14px;
+
+#addSiteType {
+  background: #1a1e22;
+  border-color: #313131;
 }
-.addSite:hover {
-  text-decoration: underline;
+
+#addSiteType span.fa {
+  color: #1a1e22;
+}
+
+#siteMenu {
+  background: #191c21;
+  border-color: #272727;
+}
+
+.content {
+  background-color: rgba(255,255,255,0.04);
+  border-color: #454950;
 }
 
 #content .header {
-  border-top: 1px solid #313131;
-  border-left: 1px solid #313131;
-  border-radius: 3px;
-  border-bottom: 1px solid rgb(56, 56, 56);
+  border-top-color: #313131;
+  border-left-color: #313131;
+  border-bottom-color: rgb(56, 56, 56);
   background: rgba(33, 37, 43, 0.92);
-  text-align: center;
 }
 #content .inner {
   background-color: #21252b;
+}
+
+/**
+* Editor
+*/
+
+#ace .ace_gutter {
+  background: rgba(0,0,0,0.1);
+}
+#ace .ace_gutter .ace_gutter-active-line {
+  background: #1e272f;
+}
+#ace .ace_marker-layer .ace_active-line,
+#ace .ace_marker-layer .ace_selection {
+  background: #1e272f;
+}
+#ace .ace_marker-layer .ace_selection {
+  border: 1px solid #40a1ca;
+  background: #255c73;
+}
+
+/**
+* Preview
+*/
+
+#preview .grab-bar {
+  background: #191c21;
+  border-color: #272727;
+}
+
+#preview .toolbar {
+  background: #191c21;
+  border-color: #272727;
+}
+#preview .toolbar a {
+  color: #c3c3c3;
+}
+#preview .toolbar a.selected {
+  color: #40a1ca;
+  border-color: #40a1ca;
+}
+
+/**
+* Status bar
+*/
+
+#statusBar {
+  background: #21252b;
+  border-color: #3a3939;
+}
+#statusBar .text {
+  border-color: #656565;
+}
+#statusBar .loading {
+  background-image: repeating-linear-gradient(-45deg, #40a1ca, #40a1ca 11px, #2e5f73 10px, #2e5f73 20px);
 }

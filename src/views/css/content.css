@@ -4,6 +4,16 @@
   float: left;
 }
 
+#content .header {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  text-align: center;
+}
+
 #content .header .text {
   padding: 3px;
 }

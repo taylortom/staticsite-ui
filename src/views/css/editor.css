@@ -3,17 +3,3 @@
   box-sizing: border-box;
   background: none;
 }
-#ace .ace_gutter {
-  background: rgba(0,0,0,0.1);
-}
-#ace .ace_gutter .ace_gutter-active-line {
-  background: #1e272f;
-}
-#ace .ace_marker-layer .ace_active-line,
-#ace .ace_marker-layer .ace_selection {
-  background: #1e272f;
-}
-#ace .ace_marker-layer .ace_selection {
-  border: 1px solid #40a1ca;
-  background: #255c73;
-}
