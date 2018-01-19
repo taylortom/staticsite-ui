@@ -77,6 +77,14 @@ $(function() {
     if(!pagesData) {
       return console.error(`Invalid site source at ${dir}`);
     }
+    // add the config page first
+    $container.append(atomisr('menuItemFile.html', {
+      class: 'file',
+      item: 'Config',
+      itemDir: siteData.DATA_PATH,
+      icon: helpers.getIconForFiletype(path.extname(siteData.DATA_PATH))
+    }));
+    // list all site pages
     for(var pageName in pagesData) {
       $container.append(atomisr('menuItemFile.html', {
         class: 'file',

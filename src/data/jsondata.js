@@ -22,10 +22,13 @@ module.exports = class JSONData {
     * Public API
     */
     return {
-      get: function(key) {
+      get DATA_PATH() {
+        return _DATA_PATH;
+      },
+      get(key) {
         return _data[key];
       },
-      set: function(key, value) {
+      set(key, value) {
         // TODO allow objects
         // appdata.set({
         //   authToken: tokenData.access_token
