@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="css/siteMenu.css">
-<div id="siteMenu">
+<div id="siteMenu" class="display-none">
   <div class="group">
     <a href="#" class="button addPage"><span class="fa fa-plus"> </span> Add page</a>
   </div>
@@ -15,6 +15,7 @@ $(function() {
   var ipc = require('electron').ipcRenderer;
   var events = require('../utils/events');
 
+  $('#siteMenu').removeClass('display-none');
   $('#siteMenu').slideUp(0);
 
   events.on('sidebar.site.show', function(site) {
