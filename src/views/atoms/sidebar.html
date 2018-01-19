@@ -20,6 +20,7 @@ $(function() {
   var Constants = require('../data/constants');
   var events = require('../utils/events');
   var helpers = require('../utils/helpers');
+  var sitedata = require('../data/sitedata');
 
   var SITES_DIR = path.join(Constants.Root, Constants.Folders.Sites);
 
@@ -70,33 +71,20 @@ $(function() {
     var $container = $(`.menuItem[data-itemDir="${dir}"] .files .inner`);
     $container.empty();
 
-    try {
-      var items = klaw(path.join(dir, '_pages'), {
-        noRecurseOnFailedFilter: true,
-        filter: function(item) {
-          var basename = path.basename(item.path);
-          return basename === '.' || basename[0] !== '.';
-        }
-      });
-    } catch(e) {
-      $(`.menuItem.site[data-itemDir='${dir}']`).remove();
+    var siteData = sitedata(dir);
+    var pagesData = siteData.get('pages');
+
+    if(!pagesData) {
       return console.error(`Invalid site source at ${dir}`);
     }
-    items.splice(0, 0, { path: path.join(dir, '_data', 'config.json') });
-
-    items.forEach(function(item) {
-      if(fs.statSync(item.path).isDirectory()) {
-        return;
-      }
-      var itemPath = item.path;
-      var filename = path.basename(itemPath);
+    for(var pageName in pagesData) {
       $container.append(atomisr('menuItemFile.html', {
         class: 'file',
-        item: filename,
-        itemDir: itemPath,
-        icon: helpers.getIconForFiletype(path.extname(filename))
+        item: pagesData[pageName].title.text,
+        itemDir: path.join(dir, Constants.Folders.Pages, pageName + Constants.DefaultPageFileType),
+        icon: helpers.getIconForFiletype(Constants.DefaultPageFileType)
       }));
-    });
+    }
   }
 
   function toggleFiles(e) {
