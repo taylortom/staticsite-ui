@@ -1,3 +1,4 @@
+var _ = require('underscore');
 var fs = require('fs-extra');
 
 module.exports = class JSONData {
@@ -9,6 +10,16 @@ module.exports = class JSONData {
       _data = fs.readJsonSync(_DATA_PATH);
     } catch(e) {
       if(e.code !== 'ENOENT') console.error(e);
+    }
+
+    function _setData(key, value) {
+      if(_.isString(key)) {
+        _data[key] = value;
+        return;
+      }
+      if(_.isObject(key)) {
+        _.extend(_data, key);
+      }
     }
 
     function _saveData() {
@@ -29,12 +40,7 @@ module.exports = class JSONData {
         return _data[key];
       },
       set(key, value) {
-        // TODO allow objects
-        // appdata.set({
-        //   authToken: tokenData.access_token
-        //   authUser: userData
-        // });
-        _data[key] = value;
+        _setData(key, value);
         _saveData();
       }
     };
